@@ -10,27 +10,24 @@ Lab1_utilities::Lab1_utilities()
 {
 }
 
-void Lab1_utilities::START_UP()
-
+bool Lab1_utilities::START_UP(unsigned int i_u32Time,unsigned short *p_16iBlinkCount)
 {
+    TIMER32_CONF(i_u32Time);
 
+    // Set blinking LEDs Port-Pin
+    P2 -> DIR =  BIT0 | BIT1 | BIT2;
+    P2 -> OUT = 0;
+    // P2 -> OUT = BIT0 | BIT1 | BIT2;
 
-    /* Configuration of timer A
-    Timer A0 Control register:
-    Clock: SMCLK / Divide: 1 / Interrupt: Enable/ Mode: Up / Clear                                         */
-    TIMER_A0 -> CTL = TIMER_A_CTL_SSEL__SMCLK | TIMER_A_CTL_ID_0 | TIMER_A_CTL_IE | TIMER_A_CTL_MC__UP | TIMER_A_CTL_CLR;
+    while(*p_16iBlinkCount > 0)
+    {
+        // Remain in state till blink ends
+    }
 
-    // Number of cycles before flag
-    TIMER_A0 -> CCR[0] = 65535;
+    TIMER32_2->CONTROL = 0; // Timer32 disabled
+    NVIC_DisableIRQ(T32_INT2_IRQn);
 
-    // Activation of output
-    MAP_GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN0);
-
-    if (TIMER_A0 -> CCTL[0] & TIMER_A_CCTLN_CCIFG == TIMER_A_CCTLN_CCIFG)
-        {
-            MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN0);
-            TIMER_A0 -> CTL = TIMER_A0 -> CTL | TIMER_A_CTL_CLR;
-        }
+    return false;
 }
 
 void Lab1_utilities::ADC_CONF()
@@ -57,6 +54,19 @@ void Lab1_utilities::ADC_CONF()
 
 }
 
+void Lab1_utilities::TIMER32_CONF(unsigned int i_u32Time)
+{
+    TIMER32_2 -> LOAD = i_u32Time; //Value the counter will decrement
+
+    // Control Register
+    // T32 size: 32 bits | Prescale: /1  Interrupt: Enable | Mode: Periodic | Timer: Enabled
+    TIMER32_2->CONTROL = TIMER32_CONTROL_SIZE | TIMER32_CONTROL_PRESCALE_0 |
+            TIMER32_CONTROL_IE | TIMER32_CONTROL_MODE | TIMER32_CONTROL_ENABLE;
+
+    // Prioriy and interrupt enable
+    NVIC_SetPriority(T32_INT2_IRQn, 1);
+    NVIC_EnableIRQ(T32_INT2_IRQn);
 
 
+}
 

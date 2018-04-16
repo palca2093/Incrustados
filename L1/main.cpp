@@ -6,30 +6,53 @@ extern "C"
     #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 }
 
+unsigned short g_16iBlinkCount  = 6;
+unsigned short *p_16iBlinkCount = &g_16iBlinkCount; //Pointer to blinkcount
+bool g_bInitialState = true; //Initial state flag
 
 void main(void)
 {
 
-
-
-
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
 
-    // Instance "tools" of the utilities class
-    Lab1_utilities Tools;
+    Lab1_utilities m_Tools; // Instance "tools" of the utilities class
 
-    // Tools.START_UP();
+    g_bInitialState = m_Tools.START_UP(0x0016E360, p_16iBlinkCount); //# of CLK periods (0x0016E360 = 1 500 000) / CLK : MCLK 3MHz
 
-    Tools.ADC_CONF();
 
-    MAP_GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN0);
-    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0);
+
 }
+
+
+extern "C"
+{
+
+void T32_INT2_IRQHandler(void)
+{
+    __disable_irq();
+    TIMER32_2->INTCLR = 0U; //Clearing of interrupt
+
+    if (g_bInitialState) // Start_up?
+    {
+        P2 -> OUT ^= BIT0 | BIT1 | BIT2; //Invertion of Port-Pin output
+
+        *p_16iBlinkCount--;
+    }
+    __enable_irq();
+    return;
+}
+
+}
+
+
+
+
 
 
 /* ADC Interrupt Handler. This handler is called whenever there is a conversion
 * that is finished for ADC_MEM0.
 */
+/*
 void ADC14_IRQHandler(void)
 {
     uint64_t status = MAP_ADC14_getEnabledInterruptStatus();
@@ -53,6 +76,6 @@ void ADC14_IRQHandler(void)
     }
 }
 
-
+*/
 
 
