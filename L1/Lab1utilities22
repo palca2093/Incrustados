@@ -30,33 +30,26 @@ bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount)
 }
 
 void Lab1_utilities::ADC_CONF()
-{
-    // Setting the GPIO port-pin 4.3 as an ADC
+{//Using Driverlib API
 
-    P4 -> SEL0 =  BIT3; //Port-Pin 4.3 in tertiary function
-    P4 -> SEL1 =  BIT3;
-    P4 -> DIR &= ~BIT3; //Port-Pin 4.3 as input
+    //Initialize ADC module (MCLK / Prediv: 1 / Div: 4)
+    MAP_ADC14_enableModule();
+    MAP_ADC14_initModule(ADC_CLOCKSOURCE_MCLK,ADC_PREDIVIDER_1,ADC_DIVIDER_4,0);
 
-    // Control 0 register
+    //Port-Pin 4.3 as ADC (Corroborar GPIO_TERTIARY_MODULE_FUNCTION)
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P4, GPIO_PIN3,GPIO_TERTIARY_MODULE_FUNCTION);
 
-    ADC14 -> CTL0 =
-            ADC14_CTL0_PDIV_0     | //Pre-divide: /1
-            ADC14_CTL0_SHS_0      | //Sample&Hold Source: Same bit as ADC14SC***
-            ADC14_CTL0_DIV_0      | //Clock divide: /1
-            ADC14_CTL0_SSEL__MCLK | //Clock: MCLK
-            ADC14_CTL0_SHT0_1     | //Sample&Hold 4 PulseMode: 8****
-            ADC14_CTL0_ON         | //ADC ready
-            ADC14_CTL0_SHP;         //SourceSignal Sample&Hold: Sampling timer****
+    //ADC Mem
+    MAP_ADC14_configureSingleSampleMode(ADC_MEM0, true);
+    MAP_ADC14_configureConversionMemory(ADC_MEM0, ADC_VREFPOS_AVCC_VREFNEG_VSS,
+    ADC_INPUT_A0, false);
 
-    //Memory Control Register 0
+    /* Configuring Sample Timer */
+    MAP_ADC14_enableSampleTimer(ADC_MANUAL_ITERATION);
 
-    ADC14->MCTL[0] = ADC14_MCTLN_INCH_10 | // Input Chanel: Ain+ = A10 ; Ain- = A11; ****
-                     ADC14_MCTLN_VRSEL_0;  // Sources Combination: V(R+)=AVCC, V(R-)=AVSS ***
-
-    ADC14->CTL0 |= ADC14_CTL0_ENC; //Enable conversation
-
-    ADC14->IER0 = ADC14_IER0_IE0; //Enable ADC interruptions
-
+    /* Enabling/Toggling Conversion */
+    MAP_ADC14_enableConversion();
+    MAP_ADC14_toggleConversionTrigger();
 
 }
 
@@ -75,11 +68,4 @@ void Lab1_utilities::TIMER32_CONF(unsigned int i_u32Time)
 
 
 }
-
-
-
-
-
-
-
 
