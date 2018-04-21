@@ -1,1 +1,1 @@
-"./Lab1utilities.obj" "./main.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "../msp432p401r.cmd" -llibc.a 
+"./Lab1utilities.obj" "./main.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "./Light_sensor/HAL_I2C.obj" "./Light_sensor/HAL_OPT3001.obj" "../msp432p401r.cmd" -llibc.a 

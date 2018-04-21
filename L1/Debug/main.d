@@ -11,6 +11,8 @@ main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/CMSIS/core_cm4.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h
 main.obj: /home/esteban/workspace_v7/L1/Lab1utilities.h
+main.obj: /home/esteban/workspace_v7/L1/Light_sensor/HAL_I2C.h
+main.obj: /home/esteban/workspace_v7/L1/Light_sensor/HAL_OPT3001.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driverlib/driverlib.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driverlib/adc14.h
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
@@ -55,6 +57,8 @@ main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driv
 /home/esteban/ti/ccsv7/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 /home/esteban/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h: 
 /home/esteban/workspace_v7/L1/Lab1utilities.h: 
+/home/esteban/workspace_v7/L1/Light_sensor/HAL_I2C.h: 
+/home/esteban/workspace_v7/L1/Light_sensor/HAL_OPT3001.h: 
 /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driverlib/driverlib.h: 
 /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driverlib/adc14.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 

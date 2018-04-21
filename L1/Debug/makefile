@@ -12,6 +12,8 @@ ORDERED_OBJS += \
 "./main.obj" \
 "./startup_msp432p401r_ccs.obj" \
 "./system_msp432p401r.obj" \
+"./Light_sensor/HAL_I2C.obj" \
+"./Light_sensor/HAL_OPT3001.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -24,7 +26,9 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include Light_sensor/subdir_vars.mk
 -include subdir_rules.mk
+-include Light_sensor/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -155,9 +159,9 @@ L1.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Lab1utilities.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
+	-$(RM) "Lab1utilities.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" "Light_sensor/HAL_I2C.obj" "Light_sensor/HAL_OPT3001.obj" 
 	-$(RM) "startup_msp432p401r_ccs.d" "system_msp432p401r.d" 
-	-$(RM) "Lab1utilities.d" "main.d" 
+	-$(RM) "Lab1utilities.d" "main.d" "Light_sensor/HAL_I2C.d" "Light_sensor/HAL_OPT3001.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

@@ -1,9 +1,3 @@
-#include "msp.h"
-extern "C"
-{ //Include Driverlib API without compiler name change
-    #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
-}
-
 #include <Lab1utilities.h>
 
 Lab1_utilities::Lab1_utilities()
@@ -29,7 +23,7 @@ bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount)
     return false;
 }
 
-void Lab1_utilities::ADC_CONF()
+void Lab1_utilities::ADC_CONF_SINGLE()
 {
     // Setting the GPIO port-pin 4.3 as an ADC
 
@@ -44,18 +38,18 @@ void Lab1_utilities::ADC_CONF()
             ADC14_CTL0_SHS_0      | //Sample&Hold Source: Same bit as ADC14SC***
             ADC14_CTL0_DIV_0      | //Clock divide: /1
             ADC14_CTL0_SSEL__MCLK | //Clock: MCLK
-            ADC14_CTL0_SHT0_1     | //Sample&Hold 4 PulseMode: 8****
+            ADC14_CTL0_SHT0_1     | //Sample&Hold Time 4 PulseMode: 8****
             ADC14_CTL0_ON         | //ADC ready
             ADC14_CTL0_SHP;         //SourceSignal Sample&Hold: Sampling timer****
 
     //Memory Control Register 0
 
-    ADC14->MCTL[0] = ADC14_MCTLN_INCH_10 | // Input Chanel: Ain+ = A10 ; Ain- = A11; ****
+    ADC14 -> MCTL[0] = ADC14_MCTLN_INCH_10 | // Input Chanel: Ain+ = A10 ; Ain- = A11; **** A10 is located in GPIO 4.3
                      ADC14_MCTLN_VRSEL_0;  // Sources Combination: V(R+)=AVCC, V(R-)=AVSS ***
 
-    ADC14->CTL0 |= ADC14_CTL0_ENC; //Enable conversation
+    ADC14 -> CTL0 |= ADC14_CTL0_ENC; //Enable conversation
 
-    ADC14->IER0 = ADC14_IER0_IE0; //Enable ADC interruptions
+    ADC14 -> IER0 = ADC14_IER0_IE0; //Enable ADC interruptions
 
 
 }
@@ -65,14 +59,23 @@ void Lab1_utilities::TIMER32_CONF(unsigned int i_u32Time)
     TIMER32_2 -> LOAD = i_u32Time; //Value the counter will decrement
 
     // Control Register
-    // T32 size: 32 bits | Prescale: /1  Interrupt: Enable | Mode: Periodic | Timer: Enabled
-    TIMER32_2->CONTROL = TIMER32_CONTROL_SIZE | TIMER32_CONTROL_PRESCALE_0 |
-            TIMER32_CONTROL_IE | TIMER32_CONTROL_MODE | TIMER32_CONTROL_ENABLE;
+    TIMER32_2 -> CONTROL =
+            TIMER32_CONTROL_SIZE | //T32 size: 32 bits
+            TIMER32_CONTROL_PRESCALE_0 | //Prescale: /1
+            TIMER32_CONTROL_IE | //Interrupt: Enable
+            TIMER32_CONTROL_MODE | //Mode: Periodic
+            TIMER32_CONTROL_ENABLE; //Timer: Enabled
 
     // Prioriy and interrupt enable
     NVIC_SetPriority(T32_INT2_IRQn, 1);
     NVIC_EnableIRQ(T32_INT2_IRQn);
 
+
+}
+
+
+void Lab1_utilities::LIGHT_SENSOR_CONF()
+{
 
 }
 
