@@ -15,9 +15,8 @@ int g_iLightNumber = 3; //Power mode (LEDs to turn on)
 
 
 
-float g_fLightNomlevel = 1000;
-unsigned int g_uLight;
-unsigned int g_uSound;
+float g_iLightNomlevel = 1000;
+
 
 
 #endif /* SETTINGS_H_ */

@@ -102,7 +102,7 @@ bool Lab1_utilities::ON_CONDITION(float i_uLight, float i_uSound, int i_iLightNo
 
     if((i_uSound > l_fPromCoparation) && (i_iLightNomlevel < i_uLight)){
 
-
+          return true;
 
     }
 
