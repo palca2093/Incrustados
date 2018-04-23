@@ -6,12 +6,12 @@ Lab1_utilities::Lab1_utilities()
 {
 }
 
-bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount)
+bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, unsigned char l_u8PowerMode)
 {
     TIMER32_2_CONF(i_u32Time);
 
     // Set blinking LEDs Port-Pin
-    P2 -> DIR =  BIT0 | BIT1 | BIT2;
+    P2 -> DIR =  l_u8PowerMode;
     P2 -> OUT = 0;
 
     while(*(p_16iBlinkCount) > 0)
@@ -46,13 +46,16 @@ void Lab1_utilities::ADC_CONF_SINGLE()
 
     //Memory Control Register 0
 
-    ADC14 -> MCTL[0] = ADC14_MCTLN_INCH_10 | // Input Chanel: Ain+ = A10 ; Ain- = A11; **** A10 is located in GPIO 4.3
+    ADC14 -> MCTL[0] = ADC14_MCTLN_INCH_10 | // Input Chanel: Ain+ = A10 ; Ain- = A11;
+                                                    //A10 is located in GPIO 4.3
                      ADC14_MCTLN_VRSEL_0;  // Sources Combination: V(R+)=AVCC, V(R-)=AVSS ***
 
     ADC14 -> CTL0 |= ADC14_CTL0_ENC; //Enable conversation
 
     ADC14 -> IER0 = ADC14_IER0_IE0; //Enable ADC interruptions
 
+    NVIC_SetPriority(ADC14_IRQn,1);
+    NVIC_EnableIRQ(ADC14_IRQn);
 
 }
 
@@ -98,3 +101,14 @@ void Lab1_utilities::LIGHT_SENSOR_CONF()
     OPT3001_init();
 
 }
+/*
+unsigned int Lab1_utilities::CHECK_LIGHT()
+{
+    unsigned int l_u32Light_measure = 0U;
+    l_u32Light_measure = OPT3001_getLux();
+
+    if(l_u32Light_measure > )
+
+
+
+}*/

@@ -8,11 +8,11 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./HAL_I2C.obj" \
+"./HAL_OPT3001.obj" \
 "./Lab1utilities.obj" \
 "./main.obj" \
 "./system_msp432p401r.obj" \
-"./Light_sensor/HAL_I2C.obj" \
-"./Light_sensor/HAL_OPT3001.obj" \
 "./ccs/startup_msp432p401r_ccs.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -32,10 +32,8 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
--include Light_sensor/subdir_vars.mk
 -include ccs/subdir_vars.mk
 -include subdir_rules.mk
--include Light_sensor/subdir_rules.mk
 -include ccs/subdir_rules.mk
 -include objects.mk
 
@@ -167,8 +165,8 @@ IE119-Lab1.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Lab1utilities.obj" "main.obj" "system_msp432p401r.obj" "Light_sensor/HAL_I2C.obj" "Light_sensor/HAL_OPT3001.obj" "ccs/startup_msp432p401r_ccs.obj" 
-	-$(RM) "system_msp432p401r.d" "Light_sensor/HAL_I2C.d" "Light_sensor/HAL_OPT3001.d" "ccs/startup_msp432p401r_ccs.d" 
+	-$(RM) "HAL_I2C.obj" "HAL_OPT3001.obj" "Lab1utilities.obj" "main.obj" "system_msp432p401r.obj" "ccs/startup_msp432p401r_ccs.obj" 
+	-$(RM) "HAL_I2C.d" "HAL_OPT3001.d" "system_msp432p401r.d" "ccs/startup_msp432p401r_ccs.d" 
 	-$(RM) "Lab1utilities.d" "main.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
