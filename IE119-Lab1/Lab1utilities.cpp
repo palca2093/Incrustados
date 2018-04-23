@@ -6,6 +6,25 @@ Lab1_utilities::Lab1_utilities()
 {
 }
 
+
+unsigned char Lab1_utilities::NUM_LIGHT_SEL(int i_iLigntNumber){
+
+    unsigned char l_u16LightNumber;
+
+    switch(i_iLigntNumber){
+    case 1:
+        l_u16LightNumber = BIT0;
+    case 2:
+        l_u16LightNumber = BIT0 | BIT1;
+    case 3:
+        l_u16LightNumber = BIT0 | BIT1 | BIT2;
+    }
+    return l_u16LightNumber;
+}
+
+
+
+
 bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, unsigned char l_u8PowerMode)
 {
     TIMER32_2_CONF(i_u32Time);
@@ -27,43 +46,59 @@ bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, un
 
 
 
-float Lab1_utilities::PROM_SOUND(float l_fADCData){
+float Lab1_utilities::PROM_SOUND(float i_fADCData, int i_iContPR){
 
     float l_fDataProm;
+    float l_fData1;
+    float l_fData2;
+    float l_fData3;
+    float l_fData4;
+    float l_fData5;
 
-
-    if(g_iContPR < 5){
-        switch(g_iContPR){
+    if(i_iContPR < 5){
+        switch(i_iContPR){
         case 0:
-            l_fDataProm = l_fADCData;
+            l_fDataProm = i_fADCData;
+            l_fData1=0;
+            l_fData2=0;
+            l_fData3=0;
+            l_fData4=0;
+            l_fData5=0;
         case 1:
-            l_fDataProm = g_fData1;
+            l_fDataProm = l_fData1;
         case 2:
-            l_fDataProm = (g_fData1 + g_fData2)/2;
+            l_fDataProm = (l_fData1 + l_fData2)/2;
         case 3:
-            l_fDataProm = (g_fData1 + g_fData2 + g_fData2)/3;
+            l_fDataProm = (l_fData1 + l_fData2 + l_fData2)/3;
         case 4:
-            l_fDataProm = (g_fData1 + g_fData2 + g_fData3 + g_fData4)/4;
+            l_fDataProm = (l_fData1 + l_fData2 + l_fData3 + l_fData4)/4;
         }
 
     }else{
-        l_fDataProm = (g_fData1 + g_fData2 + g_fData3 + g_fData4 + g_fData5)/5;
+        l_fDataProm = (l_fData1 + l_fData2 + l_fData3 + l_fData4 + l_fData5)/5;
     }
 
-        g_fData2 = g_fData1;
-        g_fData3 = g_fData2;
-        g_fData4 = g_fData3;
-        g_fData5 = g_fData4;
-        g_fData1 = l_fADCData;
-        g_iContPR ++;
+        l_fData2 = l_fData1;
+        l_fData3 = l_fData2;
+        l_fData4 = l_fData3;
+        l_fData5 = l_fData4;
+        l_fData1 = i_fADCData;
 
     return l_fDataProm;
 }
 
 
+void Lab1_utilities::ON_CONDITION(float i_uLight, float i_uSound, int i_iLightNomlevel, int i_iContPR){
 
+    float l_fPromCoparation = PROM_SOUND(i_uSound, i_iContPR) + PROM_SOUND(i_uSound , i_iContPR)*0.1;
 
+    if((i_uSound > l_fPromCoparation) && (i_iLightNomlevel < i_uLight)){
 
+        P2->DIR = BIT0 | BIT1 | BIT2;
+        P2->OUT = 8;
+
+    }
+}
 
 
 

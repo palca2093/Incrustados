@@ -14,14 +14,8 @@ unsigned int g_u32NominalPeriodCount = 0x00000BB8; // Sampling count time (0x000
 unsigned char g_u16PowerMode = BIT0 | BIT1 | BIT2; //Power mode (LEDs to turn on)
 
 
-//
+
 float g_fLightNomlevel = 1000;
-float g_fData1 = 0;
-g_fData2 = 0;
-g_fData3 = 0;
-g_fData4 = 0;
-g_fData5 = 0;
-g_iContPR = 0;
 unsigned int g_uLight;
 unsigned int g_uSound;
 
