@@ -4,6 +4,7 @@
 bool g_bInitialState = true; //Initial state flag
 unsigned short g_u16ADCResult = 0U;
 
+unsigned char g_u16PowerMode;
 
 void main(void)
 {
@@ -15,6 +16,9 @@ void main(void)
     //m_Tools.ADC_CONF_SINGLE();
 
     //m_Tools.LIGHT_SENSOR_CONF();
+
+
+    g_u16PowerMode = m_Tools.NUM_LIGHT_SEL(g_iLightNumber);
 
     g_bInitialState = m_Tools.START_UP(g_u32StartPeriodCount,
                                        &(g_16iBlinkCount),g_u16PowerMode); //# of CLK periods, pointer to BlinkCount

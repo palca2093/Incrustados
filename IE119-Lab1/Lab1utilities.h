@@ -19,7 +19,7 @@ public:
     unsigned char NUM_LIGHT_SEL(int i_iLigntNumber);
     bool START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, unsigned char l_u8PowerMode);
     float PROM_SOUND(float l_fADCData, int g_iContPR);
-    void ON_CONDITION(float l_uLight, float l_uSound, int l_iLightNomlevel, int g_iContPR);
+    bool ON_CONDITION(float l_uLight, float l_uSound, int l_iLightNomlevel, int g_iContPR);
     void ADC_CONF_SINGLE();
     void TIMER32_2_CONF(unsigned int i_u32_Time);
    // void TIMER32_2_CONF(unsigned int i_u32_Time);

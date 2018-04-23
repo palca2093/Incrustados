@@ -14,10 +14,13 @@ unsigned char Lab1_utilities::NUM_LIGHT_SEL(int i_iLigntNumber){
     switch(i_iLigntNumber){
     case 1:
         l_u16LightNumber = BIT0;
+        break;
     case 2:
         l_u16LightNumber = BIT0 | BIT1;
+        break;
     case 3:
         l_u16LightNumber = BIT0 | BIT1 | BIT2;
+        break;
     }
     return l_u16LightNumber;
 }
@@ -64,14 +67,19 @@ float Lab1_utilities::PROM_SOUND(float i_fADCData, int i_iContPR){
             l_fData3=0;
             l_fData4=0;
             l_fData5=0;
+            break;
         case 1:
             l_fDataProm = l_fData1;
+            break;
         case 2:
             l_fDataProm = (l_fData1 + l_fData2)/2;
+            break;
         case 3:
             l_fDataProm = (l_fData1 + l_fData2 + l_fData2)/3;
+            break;
         case 4:
             l_fDataProm = (l_fData1 + l_fData2 + l_fData3 + l_fData4)/4;
+            break;
         }
 
     }else{
@@ -88,16 +96,17 @@ float Lab1_utilities::PROM_SOUND(float i_fADCData, int i_iContPR){
 }
 
 
-void Lab1_utilities::ON_CONDITION(float i_uLight, float i_uSound, int i_iLightNomlevel, int i_iContPR){
+bool Lab1_utilities::ON_CONDITION(float i_uLight, float i_uSound, int i_iLightNomlevel, int i_iContPR){
 
     float l_fPromCoparation = PROM_SOUND(i_uSound, i_iContPR) + PROM_SOUND(i_uSound , i_iContPR)*0.1;
 
     if((i_uSound > l_fPromCoparation) && (i_iLightNomlevel < i_uLight)){
 
-        P2->DIR = BIT0 | BIT1 | BIT2;
-        P2->OUT = 8;
+
 
     }
+
+    return false;
 }
 
 

@@ -11,7 +11,7 @@ unsigned int g_u32StartPeriodCount = 0x0016E360; // Blink count time (0x0016E360
 unsigned int g_u32NominalPeriodCount = 0x00000BB8; // Sampling count time (0x00000BB8 = 3 000)
                                                         //With MCLK 3MHz = 1 ms
 
-unsigned char g_u16PowerMode = BIT0 | BIT1 | BIT2; //Power mode (LEDs to turn on)
+int g_iLightNumber = 3; //Power mode (LEDs to turn on)
 
 
 
