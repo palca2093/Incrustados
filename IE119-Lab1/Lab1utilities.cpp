@@ -25,6 +25,50 @@ bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, un
     return false;
 }
 
+
+
+float Lab1_utilities::PROM_SOUND(float l_fADCData){
+
+    float l_fDataProm;
+
+
+    if(g_iContPR < 5){
+        switch(g_iContPR){
+        case 0:
+            l_fDataProm = l_fADCData;
+        case 1:
+            l_fDataProm = g_fData1;
+        case 2:
+            l_fDataProm = (g_fData1 + g_fData2)/2;
+        case 3:
+            l_fDataProm = (g_fData1 + g_fData2 + g_fData2)/3;
+        case 4:
+            l_fDataProm = (g_fData1 + g_fData2 + g_fData3 + g_fData4)/4;
+        }
+
+    }else{
+        l_fDataProm = (g_fData1 + g_fData2 + g_fData3 + g_fData4 + g_fData5)/5;
+    }
+
+        g_fData2 = g_fData1;
+        g_fData3 = g_fData2;
+        g_fData4 = g_fData3;
+        g_fData5 = g_fData4;
+        g_fData1 = l_fADCData;
+        g_iContPR ++;
+
+    return l_fDataProm;
+}
+
+
+
+
+
+
+
+
+
+
 void Lab1_utilities::ADC_CONF_SINGLE()
 {
     // Setting the GPIO port-pin 4.3 as an ADC

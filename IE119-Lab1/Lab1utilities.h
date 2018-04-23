@@ -15,7 +15,15 @@ class Lab1_utilities
 {
 public:
     Lab1_utilities();
+    float g_fData1;
+    float g_fData2;
+    float g_fData3;
+    float g_fData4;
+    float g_fData5;
+    int g_iContPR;
+
     bool START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, unsigned char l_u8PowerMode);
+    float PROM_SOUND(float l_fADCData);
     void ADC_CONF_SINGLE();
     void TIMER32_2_CONF(unsigned int i_u32_Time);
    // void TIMER32_2_CONF(unsigned int i_u32_Time);
