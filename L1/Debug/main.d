@@ -10,7 +10,10 @@ main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/msp432p401r_classic.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/CMSIS/core_cm4.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h
+<<<<<<< HEAD
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/limits.h
+=======
+>>>>>>> a50d9453e8d38bfc47ba5375ba58935b0534458e
 main.obj: /home/esteban/workspace_v7/L1/Lab1utilities.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driverlib/driverlib.h
 main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driverlib/adc14.h
@@ -55,7 +58,10 @@ main.obj: /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driv
 /home/esteban/ti/ccsv7/ccs_base/arm/include/CMSIS/core_cm4.h: 
 /home/esteban/ti/ccsv7/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 /home/esteban/ti/ccsv7/ccs_base/arm/include/system_msp432p401r.h: 
+<<<<<<< HEAD
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/limits.h: 
+=======
+>>>>>>> a50d9453e8d38bfc47ba5375ba58935b0534458e
 /home/esteban/workspace_v7/L1/Lab1utilities.h: 
 /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driverlib/driverlib.h: 
 /home/esteban/ti/ccsv7/ccs_base/arm/include/ti/devices/msp432p4xx/driverlib/adc14.h: 
