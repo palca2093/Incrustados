@@ -131,34 +131,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-IE119-Lab1.out \
+Pablo\ -\ IE119-Lab1.out \
 
 EXE_OUTPUTS__QUOTED += \
-"IE119-Lab1.out" \
+"Pablo - IE119-Lab1.out" \
 
 BIN_OUTPUTS += \
-IE119-Lab1.hex \
+Pablo\ -\ IE119-Lab1.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"IE119-Lab1.hex" \
+"Pablo - IE119-Lab1.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "IE119-Lab1.out"
+	@$(MAKE) --no-print-directory -Onone "Pablo - IE119-Lab1.out"
 
 # Tool invocations
-IE119-Lab1.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+Pablo\ -\ IE119-Lab1.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"IE119-Lab1.map" --stack_size=512 -i"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"/home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="IE119-Lab1_linkInfo.xml" --rom_model -o "IE119-Lab1.out" $(ORDERED_OBJS)
+	"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"Pablo - IE119-Lab1.map" --stack_size=512 -i"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"/home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Pablo - IE119-Lab1_linkInfo.xml" --rom_model -o "Pablo - IE119-Lab1.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-IE119-Lab1.hex: $(EXE_OUTPUTS)
+Pablo\ -\ IE119-Lab1.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armhex"  -o "IE119-Lab1.hex" $(EXE_OUTPUTS__QUOTED)
+	"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armhex"  -o "Pablo - IE119-Lab1.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 

@@ -1,7 +1,7 @@
 # FIXED
 
 main.obj: ../main.cpp
-main.obj: /home/esteban/workspace_v7/IE119-Lab1/Lab1utilities.h
+main.obj: /home/esteban/workspace_v7/Pablo\ -\ IE119-Lab1/Lab1utilities.h
 main.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp.h
 main.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp432p401r.h
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
@@ -42,12 +42,12 @@ main.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/
 main.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/wdt_a.h
 main.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/sysctl.h
 main.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h
-main.obj: /home/esteban/workspace_v7/IE119-Lab1/HAL_I2C.h
-main.obj: /home/esteban/workspace_v7/IE119-Lab1/HAL_OPT3001.h
-main.obj: /home/esteban/workspace_v7/IE119-Lab1/Settings.h
+main.obj: /home/esteban/workspace_v7/Pablo\ -\ IE119-Lab1/HAL_I2C.h
+main.obj: /home/esteban/workspace_v7/Pablo\ -\ IE119-Lab1/HAL_OPT3001.h
+main.obj: /home/esteban/workspace_v7/Pablo\ -\ IE119-Lab1/Settings.h
 
 ../main.cpp: 
-/home/esteban/workspace_v7/IE119-Lab1/Lab1utilities.h: 
+/home/esteban/workspace_v7/Pablo\ -\ IE119-Lab1/Lab1utilities.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp432p401r.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
@@ -88,6 +88,6 @@ main.obj: /home/esteban/workspace_v7/IE119-Lab1/Settings.h
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/wdt_a.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/sysctl.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h: 
-/home/esteban/workspace_v7/IE119-Lab1/HAL_I2C.h: 
-/home/esteban/workspace_v7/IE119-Lab1/HAL_OPT3001.h: 
-/home/esteban/workspace_v7/IE119-Lab1/Settings.h: 
+/home/esteban/workspace_v7/Pablo\ -\ IE119-Lab1/HAL_I2C.h: 
+/home/esteban/workspace_v7/Pablo\ -\ IE119-Lab1/HAL_OPT3001.h: 
+/home/esteban/workspace_v7/Pablo\ -\ IE119-Lab1/Settings.h: 

@@ -6,12 +6,51 @@ Lab1_utilities::Lab1_utilities()
 {
 }
 
-bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, unsigned char l_u8PowerMode)
+
+unsigned char Lab1_utilities::NUM_LIGHT_SEL(int i_iLigntNumber){
+
+    unsigned char l_u16LightNumber;
+
+    switch(i_iLigntNumber){
+    case 1:
+        l_u16LightNumber = BIT0;
+        break;
+    case 2:
+        l_u16LightNumber = BIT0 | BIT1;
+        break;
+    case 3:
+        l_u16LightNumber = BIT0 | BIT1 | BIT2;
+        break;
+    }
+    return l_u16LightNumber;
+}
+
+
+
+
+bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, unsigned char i_u8PowerMode)
 {
+    // Set blinking LEDs Port-Pin
+    P2 -> DIR =  i_u8PowerMode;
+    P2 -> OUT = 0;
+
+    // Set input port for main interruption
+
+    P4 -> DIR  &= ~BIT1; //Port 4.1 as input
+    P4 -> REN  |=  BIT1; //Input with PU/PD resistor enabled
+
+    P4 -> SEL0 &= ~BIT1; //
+    P4 -> SEL1 &= ~BIT1;
+
+    P4 -> IE   |=  BIT1; // Interrupt enable for port 4.1
+
+    NVIC_SetPriority(PORT4_IRQn, 1);
+    NVIC_EnableIRQ(PORT4_IRQn);
+
     TIMER32_2_CONF(i_u32Time);
 
     // Set blinking LEDs Port-Pin
-    P2 -> DIR =  l_u8PowerMode;
+    P2 -> DIR =  i_u8PowerMode;
     P2 -> OUT = 0;
 
     while(*(p_16iBlinkCount) > 0)
@@ -25,12 +64,78 @@ bool Lab1_utilities::START_UP(unsigned int i_u32Time, short *p_16iBlinkCount, un
     return false;
 }
 
+
+
+float Lab1_utilities::PROM_SOUND(float i_fADCData, int i_iContPR){
+
+    float l_fDataProm;
+    float l_fData1;
+    float l_fData2;
+    float l_fData3;
+    float l_fData4;
+    float l_fData5;
+
+    if(i_iContPR < 5){
+        switch(i_iContPR){
+        case 0:
+            l_fDataProm = i_fADCData;
+            l_fData1=0;
+            l_fData2=0;
+            l_fData3=0;
+            l_fData4=0;
+            l_fData5=0;
+            break;
+        case 1:
+            l_fDataProm = l_fData1;
+            break;
+        case 2:
+            l_fDataProm = (l_fData1 + l_fData2)/2;
+            break;
+        case 3:
+            l_fDataProm = (l_fData1 + l_fData2 + l_fData2)/3;
+            break;
+        case 4:
+            l_fDataProm = (l_fData1 + l_fData2 + l_fData3 + l_fData4)/4;
+            break;
+        }
+
+    }else{
+        l_fDataProm = (l_fData1 + l_fData2 + l_fData3 + l_fData4 + l_fData5)/5;
+    }
+
+        l_fData2 = l_fData1;
+        l_fData3 = l_fData2;
+        l_fData4 = l_fData3;
+        l_fData5 = l_fData4;
+        l_fData1 = i_fADCData;
+
+    return l_fDataProm;
+}
+
+
+bool Lab1_utilities::ON_CONDITION(float i_uLight, float i_uSound, int i_iLightNomlevel, int i_iContPR){
+
+    float l_fPromCoparation = PROM_SOUND(i_uSound, i_iContPR) + PROM_SOUND(i_uSound , i_iContPR)*0.1;
+
+    if((i_uSound > l_fPromCoparation) && (i_iLightNomlevel < i_uLight)){
+
+          return true;
+
+    }
+
+    return false;
+}
+
+
+
+
+
 void Lab1_utilities::ADC_CONF_SINGLE()
 {
     // Setting the GPIO port-pin 4.3 as an ADC
 
-    P4 -> SEL0 =  BIT3; //Port-Pin 4.3 in tertiary function
-    P4 -> SEL1 =  BIT3;
+    P4 -> SEL0 |=  BIT3; //Port-Pin 4.3 in tertiary function
+    P4 -> SEL1 |=  BIT3;
     P4 -> DIR &= ~BIT3; //Port-Pin 4.3 as input
 
     // Control 0 register
@@ -78,6 +183,25 @@ void Lab1_utilities::TIMER32_2_CONF(unsigned int i_u32Time)
 
 }
 
+void Lab1_utilities::TIMER32_1_CONF(unsigned int i_u32Time)
+{
+    TIMER32_1 -> LOAD = i_u32Time; //Value the counter will decrement
+
+    // Control Register
+    TIMER32_1 -> CONTROL =
+            TIMER32_CONTROL_SIZE | //T32 size: 32 bits
+            TIMER32_CONTROL_PRESCALE_2 | //Prescale: /256
+            TIMER32_CONTROL_IE | //Interrupt: Enable
+            TIMER32_CONTROL_MODE | //Mode: Periodic
+            TIMER32_CONTROL_ENABLE; //Timer: Enabled
+
+    // Prioriy and interrupt enable
+    NVIC_SetPriority(T32_INT1_IRQn, 1);
+    NVIC_EnableIRQ(T32_INT1_IRQn);
+
+
+}
+
 
 void Lab1_utilities::LIGHT_SENSOR_CONF()
 {
@@ -86,7 +210,7 @@ void Lab1_utilities::LIGHT_SENSOR_CONF()
     P6 -> DIR &= ~BIT4;
     P6 -> DIR &= ~BIT5;
 
-    // P6 -> SEL set in primary function (0 in SEL0 4th & 5th pos | 1 in SEL1 4th & 5th pos)
+    // P6 -> SEL set in primary function (1 in SEL0 4th & 5th pos | 0 in SEL1 4th & 5th pos)
 
     P6 -> SEL0 |=  BIT4;
     P6 -> SEL0 |=  BIT5;
@@ -101,14 +225,36 @@ void Lab1_utilities::LIGHT_SENSOR_CONF()
     OPT3001_init();
 
 }
-/*
-unsigned int Lab1_utilities::CHECK_LIGHT()
+
+
+void Lab1_utilities::SWITCH_DEBOUNCE()
 {
-    unsigned int l_u32Light_measure = 0U;
-    l_u32Light_measure = OPT3001_getLux();
+    int l_iDebounceCount = 0;
 
-    if(l_u32Light_measure > )
+    while(l_iDebounceCount <3000)
+    {
+        l_iDebounceCount++;
+    }
+}
+
+
+bool Lab1_utilities::CHECK_LIGHT(float i_fLightNomlevel, unsigned short i_u16PowerMode)
+{
+
+    if(OPT3001_getLux() < i_fLightNomlevel)
+    {
+        P2 -> OUT = i_u16PowerMode;
+        return false;
+    }
+
+    else
+    {
+        return true;
+    }
+
+
+}
 
 
 
-}*/
+
