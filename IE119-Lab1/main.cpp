@@ -110,7 +110,7 @@ void ADC14_IRQHandler(void) //ADC14 interruption handler
 
     if( (g_u32Light_Value < g_u32LightNomlevel)  && //Tresshold comparisson: Light.
         (g_u16ADCResult > 1.1*g_u32AverageValue)  && //Current sound
-        (g_u32ADCResultArray[0] > 1.1*g_u32AverageValue) )//Sound 1 period ago
+        (g_u32ADCResultArray[1] > 1.1*g_u32AverageValue) )//Sound 1 period ago
                     {
                         // Stablish ON state
                         m_Tools.SET_LAMP_ON(g_u16PowerMode);
