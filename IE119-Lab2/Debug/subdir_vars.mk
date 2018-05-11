@@ -7,6 +7,7 @@ SHELL = cmd.exe
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../LED.cpp \
+../Lab2utilities.cpp \
 ../Scheduler.cpp \
 ../Task.cpp \
 ../main.cpp 
@@ -24,6 +25,7 @@ C_DEPS += \
 
 OBJS += \
 ./LED.obj \
+./Lab2utilities.obj \
 ./Scheduler.obj \
 ./Task.obj \
 ./main.obj \
@@ -32,12 +34,14 @@ OBJS += \
 
 CPP_DEPS += \
 ./LED.d \
+./Lab2utilities.d \
 ./Scheduler.d \
 ./Task.d \
 ./main.d 
 
 OBJS__QUOTED += \
 "LED.obj" \
+"Lab2utilities.obj" \
 "Scheduler.obj" \
 "Task.obj" \
 "main.obj" \
@@ -50,12 +54,14 @@ C_DEPS__QUOTED += \
 
 CPP_DEPS__QUOTED += \
 "LED.d" \
+"Lab2utilities.d" \
 "Scheduler.d" \
 "Task.d" \
 "main.d" 
 
 CPP_SRCS__QUOTED += \
 "../LED.cpp" \
+"../Lab2utilities.cpp" \
 "../Scheduler.cpp" \
 "../Task.cpp" \
 "../main.cpp" 

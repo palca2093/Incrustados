@@ -11,6 +11,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./LED.obj" \
+"./Lab2utilities.obj" \
 "./Scheduler.obj" \
 "./Task.obj" \
 "./main.obj" \
@@ -159,9 +160,9 @@ IE119-Lab2.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "LED.obj" "Scheduler.obj" "Task.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
+	-$(RM) "LED.obj" "Lab2utilities.obj" "Scheduler.obj" "Task.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
 	-$(RM) "startup_msp432p401r_ccs.d" "system_msp432p401r.d" 
-	-$(RM) "LED.d" "Scheduler.d" "Task.d" "main.d" 
+	-$(RM) "LED.d" "Lab2utilities.d" "Scheduler.d" "Task.d" "main.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
