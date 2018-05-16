@@ -138,20 +138,29 @@ short Lab2_utilities::LCD_LINE_NUMBER(unsigned short i_u16CoordinateY, float i_i
 }
 
 
-short Lab2_utilities::LCD_LINE_UPDATE(short i_i16PreviousLines, short i_i16CurrentLines)
+void Lab2_utilities::LCD_LINE_UPDATE(short * i_i16PreviousLines, short * i_i16CurrentLines)
 {
-    if (i_i16CurrentLines > i_i16PreviousLines)
+    if (*i_i16CurrentLines > *i_i16PreviousLines)
     {
-        for(short index = i_i16PreviousLines; index <= i_i16CurrentLines; index++)
+        for(short index = *i_i16PreviousLines; index <= *i_i16CurrentLines; index++)
         {
-            Crystalfontz128x128_LineDrawH(&m_Tools.g_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLUE);
+            Crystalfontz128x128_LineDrawH(&g_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLUE);
         }
     }
 
-    else if(i_i16CurrentLines > i_i16PreviousLines)
+    else if(*i_i16CurrentLines < *i_i16PreviousLines)
     {
-
+        for(short index = *i_i16PreviousLines; index >= *i_i16CurrentLines; index--)
+        {
+            Crystalfontz128x128_LineDrawH(&g_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLACK);
+        }
     }
+
+
+    *i_i16PreviousLines = *i_i16CurrentLines;
+
+
+
 }
 
 

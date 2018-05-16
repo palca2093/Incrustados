@@ -30,10 +30,11 @@ public:
     void    LCD_CONF();
     short   LCD_LINE_NUMBER(unsigned short i_u16CoordinateY,
                             float i_iLineSlope , float i_iLineBias);
+    void    LCD_LINE_UPDATE(short *i_i16PreviousLines, short *i_i16CurrentLines);
 
 private:
 
-    int l_iNumberOfLines; //Local variable to use in LCD_LINE_NUMBER method
+    bool l_bFirstRun;
 
     //Variables to use in ADC unit change
 

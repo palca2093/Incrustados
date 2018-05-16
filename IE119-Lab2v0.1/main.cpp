@@ -6,6 +6,7 @@
 Lab2_utilities m_Tools; // Instance "tools" of the utilities class
 
 unsigned short  g_u16ADCResult[3];
+short g_i16LCDLines[2];
 
 void main(void)
 {
@@ -32,7 +33,7 @@ void main(void)
     }
 
 
-
+    g_i16LCDLines[0] = 64;
 
 
     while(true)
@@ -42,8 +43,13 @@ void main(void)
 
         __wfi();
 
+        g_i16LCDLines[1] = m_Tools.LCD_LINE_NUMBER(g_u16ADCResult[1], g_iLineSlope, g_iLineBias);
 
-        m_Tools.LCD_LINE_NUMBER(g_u16ADCResult[1], g_iLineSlope, g_iLineBias);
+        m_Tools.LCD_LINE_UPDATE(&g_i16LCDLines[0], &g_i16LCDLines[1]);
+
+
+
+
 
     }
 
