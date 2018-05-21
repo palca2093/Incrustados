@@ -10,15 +10,26 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./HAL_I2C.obj" \
+"./HAL_OPT3001.obj" \
 "./LED.obj" \
 "./Lab2utilities.obj" \
 "./Scheduler.obj" \
 "./Task.obj" \
 "./main.obj" \
-"./startup_msp432p401r_ccs.obj" \
+"./mainViejo.obj" \
 "./system_msp432p401r.obj" \
+"./LcdDriver/Crystalfontz128x128_ST7735.obj" \
+"./LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" \
+"./ccs/startup_msp432p401r_ccs.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
+-l"ti/display/lib/display.aem4f" \
+-l"ti/grlib/lib/ccs/m4f/grlib.a" \
+-l"third_party/spiffs/lib/ccs/m4f/spiffs.a" \
+-l"ti/drivers/lib/drivers_msp432p401x.aem4f" \
+-l"third_party/fatfs/lib/ccs/m4f/fatfs.a" \
+-l"ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib" \
 -llibc.a \
 
 -include ../makefile.init
@@ -29,7 +40,11 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include LcdDriver/subdir_vars.mk
+-include ccs/subdir_vars.mk
 -include subdir_rules.mk
+-include LcdDriver/subdir_rules.mk
+-include ccs/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -146,23 +161,23 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 IE119-Lab2.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"IE119-Lab2.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccsv7/ccs_base/arm/include" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="IE119-Lab2_linkInfo.xml" --rom_model -o "IE119-Lab2.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"IE119-Lab2.map" --stack_size=512 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="IE119-Lab2_linkInfo.xml" --rom_model -o "IE119-Lab2.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 IE119-Lab2.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armhex" --memwidth=8 --romwidth=8 -o "IE119-Lab2.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armhex"  -o "IE119-Lab2.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "LED.obj" "Lab2utilities.obj" "Scheduler.obj" "Task.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
-	-$(RM) "startup_msp432p401r_ccs.d" "system_msp432p401r.d" 
-	-$(RM) "LED.d" "Lab2utilities.d" "Scheduler.d" "Task.d" "main.d" 
+	-$(RM) "HAL_I2C.obj" "HAL_OPT3001.obj" "LED.obj" "Lab2utilities.obj" "Scheduler.obj" "Task.obj" "main.obj" "mainViejo.obj" "system_msp432p401r.obj" "LcdDriver\Crystalfontz128x128_ST7735.obj" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "ccs\startup_msp432p401r_ccs.obj" 
+	-$(RM) "HAL_I2C.d" "HAL_OPT3001.d" "system_msp432p401r.d" "LcdDriver\Crystalfontz128x128_ST7735.d" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" "ccs\startup_msp432p401r_ccs.d" 
+	-$(RM) "LED.d" "Lab2utilities.d" "Scheduler.d" "Task.d" "main.d" "mainViejo.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

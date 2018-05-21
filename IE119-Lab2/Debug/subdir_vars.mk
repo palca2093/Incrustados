@@ -10,26 +10,31 @@ CPP_SRCS += \
 ../Lab2utilities.cpp \
 ../Scheduler.cpp \
 ../Task.cpp \
-../main.cpp 
+../main.cpp \
+../mainViejo.cpp 
 
 CMD_SRCS += \
 ../msp432p401r.cmd 
 
 C_SRCS += \
-../startup_msp432p401r_ccs.c \
+../HAL_I2C.c \
+../HAL_OPT3001.c \
 ../system_msp432p401r.c 
 
 C_DEPS += \
-./startup_msp432p401r_ccs.d \
+./HAL_I2C.d \
+./HAL_OPT3001.d \
 ./system_msp432p401r.d 
 
 OBJS += \
+./HAL_I2C.obj \
+./HAL_OPT3001.obj \
 ./LED.obj \
 ./Lab2utilities.obj \
 ./Scheduler.obj \
 ./Task.obj \
 ./main.obj \
-./startup_msp432p401r_ccs.obj \
+./mainViejo.obj \
 ./system_msp432p401r.obj 
 
 CPP_DEPS += \
@@ -37,19 +42,23 @@ CPP_DEPS += \
 ./Lab2utilities.d \
 ./Scheduler.d \
 ./Task.d \
-./main.d 
+./main.d \
+./mainViejo.d 
 
 OBJS__QUOTED += \
+"HAL_I2C.obj" \
+"HAL_OPT3001.obj" \
 "LED.obj" \
 "Lab2utilities.obj" \
 "Scheduler.obj" \
 "Task.obj" \
 "main.obj" \
-"startup_msp432p401r_ccs.obj" \
+"mainViejo.obj" \
 "system_msp432p401r.obj" 
 
 C_DEPS__QUOTED += \
-"startup_msp432p401r_ccs.d" \
+"HAL_I2C.d" \
+"HAL_OPT3001.d" \
 "system_msp432p401r.d" 
 
 CPP_DEPS__QUOTED += \
@@ -57,17 +66,20 @@ CPP_DEPS__QUOTED += \
 "Lab2utilities.d" \
 "Scheduler.d" \
 "Task.d" \
-"main.d" 
+"main.d" \
+"mainViejo.d" 
+
+C_SRCS__QUOTED += \
+"../HAL_I2C.c" \
+"../HAL_OPT3001.c" \
+"../system_msp432p401r.c" 
 
 CPP_SRCS__QUOTED += \
 "../LED.cpp" \
 "../Lab2utilities.cpp" \
 "../Scheduler.cpp" \
 "../Task.cpp" \
-"../main.cpp" 
-
-C_SRCS__QUOTED += \
-"../startup_msp432p401r_ccs.c" \
-"../system_msp432p401r.c" 
+"../main.cpp" \
+"../mainViejo.cpp" 
 
 
