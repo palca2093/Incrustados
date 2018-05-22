@@ -119,7 +119,7 @@ void Lab2_utilities::LCD_CONF()
                                  &g_stDisplay,                  // Display driver
                                  &g_sCrystalfontz128x128_funcs);// Graphic functions
 
-    Graphics_setBackgroundColor (&g_stGraphicContext, GRAPHICS_COLOR_BLUE);
+    Graphics_setBackgroundColor (&g_stGraphicContext, GRAPHICS_COLOR_BLACK);
 }
 
 

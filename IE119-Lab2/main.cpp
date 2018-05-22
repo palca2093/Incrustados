@@ -1,14 +1,16 @@
+#include <ti/devices/msp432p4xx/inc/msp.h>
 #include "main.hpp"
 #include "Scheduler.hpp"
 #include "Task.hpp"
 #include "LED.hpp"
-#include "Lab2utilities.hpp"
 
 // ##########################
 // Global/Static declarations
 // ##########################
 uint8_t Task::m_u8NextTaskID = 0; // - Init task ID
+
 volatile static uint64_t g_SystemTicks = 0; // - The system counter.
+Mailbox* g_Mailbox = Mailbox::getMailbox();
 Scheduler g_MainScheduler; // - Instantiate a Scheduler
 
 // #########################
@@ -16,15 +18,14 @@ Scheduler g_MainScheduler; // - Instantiate a Scheduler
 // #########################
 void main(void)
 {
-
     // - Instantiate two new Tasks
     LED BlueLED(BIT2);
     LED GreenLED(BIT1);
     // - Run the overall setup function for the system
     Setup();
     // - Attach the Tasks to the Scheduler;
-    g_MainScheduler.attach(&BlueLED, 500);
-    //g_MainScheduler.attach(&GreenLED, 300);
+    g_MainScheduler.attach(&BlueLED,TaskType_Periodic, TaskActiveTrue,500);
+    g_MainScheduler.attach(&GreenLED, TaskType_Periodic,TaskActiveFalse,600);
     // - Run the Setup for the scheduler and all tasks
     g_MainScheduler.setup();
     // - Main Loop

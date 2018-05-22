@@ -26,20 +26,20 @@ void main(void)
 
     /*Crystalfontz128x128_RectFill(&m_Tools.g_stDisplay,
                                  &m_Tools.g_stHorizonPosition,
-                                 GRAPHICS_COLOR_BLACK); */
+                                 GRAPHICS_COLOR_BLACK);****** */
 
-    //Crystalfontz128x128_LineDrawH(&m_Tools.g_stDisplay, lX1, lX2, lY, ulValue)
+    //Crystalfontz128x128_LineDrawH(&m_Tools.g_stDisplay, lX1, lX2, lY, ulValue) *****
 
 
 /*
 
     for(short index = 0; index <= 64; index++)
     {
-        Crystalfontz128x128_LineDrawH(&m_Tools.g_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLACK);
+        Crystalfontz128x128_LineDrawH(&m_Tools.g_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLACK);****
     }
 
 
-    g_i16LCDLines[0] = 64;
+    g_i16LCDLines[0] = 64; *******
 
 
     while(true)

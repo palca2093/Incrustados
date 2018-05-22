@@ -2,10 +2,16 @@
 
 LcdDriver/Crystalfontz128x128_ST7735.obj: ../LcdDriver/Crystalfontz128x128_ST7735.c
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/Users/palca/OneDrive/Documents/GitHub/Incrustados/IE119-Lab2/Crystalfontz128x128_ST7735.h
-LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdint.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/cdefs.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_types.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_types.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/driverlib.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/adc14.h
-LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdbool.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp432p401r.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp_compatibility.h
@@ -43,17 +49,24 @@ LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/sysctl.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/grlib/grlib.h
-LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/assert.h
-LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/assert.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
+LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/Users/palca/OneDrive/Documents/GitHub/Incrustados/IE119-Lab2/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.h
 LcdDriver/Crystalfontz128x128_ST7735.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/grlib/grlib.h
 
 ../LcdDriver/Crystalfontz128x128_ST7735.c: 
 C:/Users/palca/OneDrive/Documents/GitHub/Incrustados/IE119-Lab2/Crystalfontz128x128_ST7735.h: 
-C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/cdefs.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_types.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_types.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/driverlib.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/adc14.h: 
-C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdbool.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp432p401r.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/msp_compatibility.h: 
@@ -91,7 +104,8 @@ C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/sysctl.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/grlib/grlib.h: 
-C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/assert.h: 
-C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/assert.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h: 
 C:/Users/palca/OneDrive/Documents/GitHub/Incrustados/IE119-Lab2/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/grlib/grlib.h: 

@@ -2,6 +2,7 @@
 #define TASK_HPP_
 
 #include <ti/devices/msp432p4xx/inc/msp.h>
+#include "Mailbox.hpp"
 
 #define NO_ERR 0
 #define RET_ERR 1
@@ -16,9 +17,13 @@ class Task
 		bool                IsTaskFinished(void){return m_bIsFinished;};
 		uint8_t             GetTaskPriority(void) {return m_u8Priority;};
 		void                SetTaskPriority(uint8_t i_u8NewPriority){m_u8Priority = i_u8NewPriority;};
+		st_Message          getMessage(uint8_t i_u8TaskID);
+		bool                sendMessage(st_Message i_stMessage);
+
 	private:
 	   static uint8_t m_u8NextTaskID;
 	   uint8_t m_u8Priority;
+	   Mailbox* m_pMailbox;
 	protected:
 	   bool m_bIsFinished;
 };

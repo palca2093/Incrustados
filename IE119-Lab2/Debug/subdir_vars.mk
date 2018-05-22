@@ -6,8 +6,10 @@ SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../LCD.cpp \
 ../LED.cpp \
 ../Lab2utilities.cpp \
+../Mailbox.cpp \
 ../Scheduler.cpp \
 ../Task.cpp \
 ../main.cpp \
@@ -29,8 +31,10 @@ C_DEPS += \
 OBJS += \
 ./HAL_I2C.obj \
 ./HAL_OPT3001.obj \
+./LCD.obj \
 ./LED.obj \
 ./Lab2utilities.obj \
+./Mailbox.obj \
 ./Scheduler.obj \
 ./Task.obj \
 ./main.obj \
@@ -38,8 +42,10 @@ OBJS += \
 ./system_msp432p401r.obj 
 
 CPP_DEPS += \
+./LCD.d \
 ./LED.d \
 ./Lab2utilities.d \
+./Mailbox.d \
 ./Scheduler.d \
 ./Task.d \
 ./main.d \
@@ -48,8 +54,10 @@ CPP_DEPS += \
 OBJS__QUOTED += \
 "HAL_I2C.obj" \
 "HAL_OPT3001.obj" \
+"LCD.obj" \
 "LED.obj" \
 "Lab2utilities.obj" \
+"Mailbox.obj" \
 "Scheduler.obj" \
 "Task.obj" \
 "main.obj" \
@@ -62,8 +70,10 @@ C_DEPS__QUOTED += \
 "system_msp432p401r.d" 
 
 CPP_DEPS__QUOTED += \
+"LCD.d" \
 "LED.d" \
 "Lab2utilities.d" \
+"Mailbox.d" \
 "Scheduler.d" \
 "Task.d" \
 "main.d" \
@@ -75,8 +85,10 @@ C_SRCS__QUOTED += \
 "../system_msp432p401r.c" 
 
 CPP_SRCS__QUOTED += \
+"../LCD.cpp" \
 "../LED.cpp" \
 "../Lab2utilities.cpp" \
+"../Mailbox.cpp" \
 "../Scheduler.cpp" \
 "../Task.cpp" \
 "../main.cpp" \
