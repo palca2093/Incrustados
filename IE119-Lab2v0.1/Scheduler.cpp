@@ -1,6 +1,7 @@
 #include "Scheduler.hpp"
 
 // - Scheduler constructor
+
 Scheduler::Scheduler()
 {
     m_u8OpenSlots = static_cast<uint8_t>(NUMBER_OF_SLOTS);
@@ -16,7 +17,11 @@ Scheduler::Scheduler()
     return;
 }
 
+//#######################################################################
+//#######################################################################
+
 // - The attach function, inserts the task into the schedule slots.
+
 uint8_t Scheduler::attach(Task * i_pTask, TaskType i_enTaskType, TaskActive i_enTaskIsActive,uint64_t i_u64TickInterval)
 {
     uint8_t l_ErrorCode = NO_ERR;
@@ -41,7 +46,50 @@ uint8_t Scheduler::attach(Task * i_pTask, TaskType i_enTaskType, TaskActive i_en
     }
     return l_ErrorCode;
 }
+
+
+//#######################################################################
+//#######################################################################
+
+
+// - Execute the setup function for all tasks
+
+uint8_t Scheduler::setup(void)
+{
+    int l_iNextTaskSlot = 0U;
+    Task * l_pNextTask = (uintptr_t) 0;
+    uint8_t l_u8ReturnCode = NO_ERR;
+
+    //Get number of attached tasks
+
+    m_u8TaskCount = NumberOfTasks();
+
+    //Setup Mailbox size depending on the number of tasks
+
+    m_pMailbox -> setupMailbox(m_u8TaskCount);
+
+    // - Run the setup function for all available tasks.
+
+    while(l_iNextTaskSlot < NUMBER_OF_SLOTS)
+    {
+        l_pNextTask = static_cast<Task *> (m_aSchedule[l_iNextTaskSlot].pTask);
+        if(l_pNextTask != ((uintptr_t) 0))
+        {
+            l_pNextTask->setup();
+        }
+        l_iNextTaskSlot++;
+    }
+
+
+    return l_u8ReturnCode;
+}
+
+
+//#######################################################################
+//#######################################################################
+
 // - Execute the current schedule
+
 uint8_t Scheduler::run(void)
 {
     uint8_t l_u8NextSlot = 0U;
@@ -102,31 +150,14 @@ uint8_t Scheduler::run(void)
 
     return l_u8ReturnCode;
 }
-// - Execute the setup function for all tasks
-uint8_t Scheduler::setup(void)
-{
-    int l_iNextTaskSlot = 0U;
-    Task * l_pNextTask = (uintptr_t) 0;
-    uint8_t l_u8ReturnCode = NO_ERR;
 
-    //Setup Mailbox Characteristics
+//#######################################################################
+//#######################################################################
 
 
 
-    // - Run the setup function for all available tasks.
-    while(l_iNextTaskSlot < NUMBER_OF_SLOTS)
-    {
-        l_pNextTask = static_cast<Task *> (m_aSchedule[l_iNextTaskSlot].pTask);
-        if(l_pNextTask != ((uintptr_t) 0))
-        {
-            l_pNextTask->setup();
-        }
-        l_iNextTaskSlot++;
-    }
-
-
-    return l_u8ReturnCode;
-}
+//#######################################################################
+//#######################################################################
 
 uint8_t Scheduler::CalculateNextSchedule(void)
 {

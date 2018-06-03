@@ -61,6 +61,7 @@ main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/li
 main.obj: ../Scheduler.hpp
 main.obj: ../Task.hpp
 main.obj: ../Mailbox.hpp
+main.obj: ../Tasks/Message_Codes.hpp
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h
@@ -68,6 +69,8 @@ main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/li
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h
 main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
+main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/limits.h
+main.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/limits.h
 main.obj: ../Tasks/LED.hpp
 
 ../main.cpp: 
@@ -131,6 +134,7 @@ main.obj: ../Tasks/LED.hpp
 ../Scheduler.hpp: 
 ../Task.hpp: 
 ../Mailbox.hpp: 
+../Tasks/Message_Codes.hpp: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h: 
@@ -138,4 +142,6 @@ main.obj: ../Tasks/LED.hpp
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/limits.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/limits.h: 
 ../Tasks/LED.hpp: 

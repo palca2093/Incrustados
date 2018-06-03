@@ -23,6 +23,7 @@ Scheduler.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_
 Scheduler.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 Scheduler.obj: ../Task.hpp
 Scheduler.obj: ../Mailbox.hpp
+Scheduler.obj: ../Tasks/Message_Codes.hpp
 Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
 Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h
 Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
@@ -32,6 +33,8 @@ Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/inclu
 Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h
 Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h
 Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
+Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/limits.h
+Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/limits.h
 
 ../Scheduler.cpp: 
 ../Scheduler.hpp: 
@@ -56,6 +59,7 @@ Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/inclu
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 ../Task.hpp: 
 ../Mailbox.hpp: 
+../Tasks/Message_Codes.hpp: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
@@ -65,3 +69,5 @@ Scheduler.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/inclu
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/limits.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/limits.h: 

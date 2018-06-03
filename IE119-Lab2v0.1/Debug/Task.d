@@ -22,6 +22,7 @@ Task.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party
 Task.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_ccs.h
 Task.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 Task.obj: ../Mailbox.hpp
+Task.obj: ../Tasks/Message_Codes.hpp
 Task.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
 Task.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h
 Task.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
@@ -52,6 +53,7 @@ Task.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/st
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_ccs.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 ../Mailbox.hpp: 
+../Tasks/Message_Codes.hpp: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 

@@ -23,6 +23,7 @@ Tasks/LINE_COUNT.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source
 Tasks/LINE_COUNT.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 Tasks/LINE_COUNT.obj: /home/esteban/workspace_v7/IE119-Lab2v0.1/Task.hpp
 Tasks/LINE_COUNT.obj: /home/esteban/workspace_v7/IE119-Lab2v0.1/Mailbox.hpp
+Tasks/LINE_COUNT.obj: /home/esteban/workspace_v7/IE119-Lab2v0.1/Tasks/Message_Codes.hpp
 Tasks/LINE_COUNT.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
 Tasks/LINE_COUNT.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h
 Tasks/LINE_COUNT.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
@@ -54,6 +55,7 @@ Tasks/LINE_COUNT.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LT
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 /home/esteban/workspace_v7/IE119-Lab2v0.1/Task.hpp: 
 /home/esteban/workspace_v7/IE119-Lab2v0.1/Mailbox.hpp: 
+/home/esteban/workspace_v7/IE119-Lab2v0.1/Tasks/Message_Codes.hpp: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 

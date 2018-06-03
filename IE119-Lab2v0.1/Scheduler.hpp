@@ -11,9 +11,11 @@
 #define TASKS_SCHEDULER_HPP_
 #include <ti/devices/msp432p4xx/inc/msp.h>
 #include "Task.hpp"
+#include "Tasks/Message_Codes.hpp"
 #include "Mailbox.hpp"
 #include <stdlib.h>
 #include <stdio.h>
+#include "limits.h"
 
 #define NUMBER_OF_SLOTS 255
 #define MAX_MESSAGE_QUEUE 50
@@ -54,12 +56,12 @@ public:
     uint8_t attach(Task * i_pTask, TaskType i_enType, TaskActive i_enTaskActive, uint64_t i_u64TickInterval = 0U);
     uint8_t run(void);
     uint8_t setup(void);
-    uint8_t NumberOfTasks(void);
+
 
 private:
     uint8_t m_u8OpenSlots; // - Available slots
     uint8_t m_u8NextSlot;  // - Next available slot
-    uint8_t m_u8TaskCount; // - Number of tasks attached
+    volatile int m_u8TaskCount; // - Number of tasks attached
 
     st_TaskInfo m_aSchedule[NUMBER_OF_SLOTS]; // - Current schedule to be executed
 
@@ -70,6 +72,8 @@ private:
     uint8_t SortScheduleByPriority(void); // - Sorts a schedule based on priority (not implemented)
     uintptr_t m_pNextSchedule; // - Pointer to the next schedule.
     Mailbox* m_pMailbox;
+    uint8_t NumberOfTasks(void);
+
 };
 
 

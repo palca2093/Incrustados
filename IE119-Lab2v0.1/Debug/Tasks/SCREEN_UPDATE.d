@@ -23,6 +23,7 @@ Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/sou
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/workspace_v7/IE119-Lab2v0.1/Task.hpp
 Tasks/SCREEN_UPDATE.obj: /home/esteban/workspace_v7/IE119-Lab2v0.1/Mailbox.hpp
+Tasks/SCREEN_UPDATE.obj: /home/esteban/workspace_v7/IE119-Lab2v0.1/Tasks/Message_Codes.hpp
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
@@ -54,6 +55,7 @@ Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 /home/esteban/workspace_v7/IE119-Lab2v0.1/Task.hpp: 
 /home/esteban/workspace_v7/IE119-Lab2v0.1/Mailbox.hpp: 
+/home/esteban/workspace_v7/IE119-Lab2v0.1/Tasks/Message_Codes.hpp: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
