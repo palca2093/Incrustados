@@ -73,7 +73,7 @@ private:
     uintptr_t m_pNextSchedule; // - Pointer to the next schedule.
     Mailbox* m_pMailbox;
     uint8_t NumberOfTasks(void);
-
+    uint8_t SCHEDULER_MAILBOX;
 };
 
 

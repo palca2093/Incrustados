@@ -25,6 +25,7 @@ const uint8_t QUEUE_ERROR = 255;
 
 const bool VALID_MESSAGE    = true;
 const bool INVALID_MESSAGE  = false;
+const uint16_t ANY_MESSAGE = 65535;
 
 
 
@@ -46,16 +47,26 @@ public:
 
     void sendMessage(st_Message i_stMessage);
 
-    st_Message getMessage(uint8_t i_u8MailboxID);
+    st_Message getMessage(uint8_t i_u8MailboxID, uint16_t i_u16MessageCode = ANY_MESSAGE);
 
     void setupMailbox(uint8_t i_u8NumberOfTasks);
+
+    void MarkMessaeAsInvalid(uint8_t i_u8TaskID, uint8_t i_u8MessagePossition);
+
+    st_Message GetDefaultMessage(void);
+    uint16_t   GetMaxMessageQueue(void);
+
+
 
 private:
     Mailbox();
     static Mailbox* MailObj;
     void            MessageAccessWrite(uint8_t i_u8TaskID , st_Message i_stMessage2Write);
     st_Message *    MessageAccessRead(uint8_t i_u8TaskID ,uint8_t i_u8MessagePosition);
-    uint8_t         FindMessageSlot(uint8_t i_u8TaskID, bool i_bMessageValidity);
+    uint8_t         FindMessageSlot(uint8_t i_u8TaskID,
+                                    bool i_bMessageValidity,
+                                    uint16_t i_u16MessageCode = ANY_MESSAGE
+                                    );
 
     st_Message m_stDefaultMessage;
     uint16_t l_i16MaxQueuePerTask;

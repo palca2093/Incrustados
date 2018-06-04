@@ -36,16 +36,6 @@ private:
 
     bool l_bFirstRun;
 
-    //Variables to use in ADC unit change
-
-  /*  volatile int l_iMinADC;
-    volatile int l_iMaxADC;
-    volatile int l_fLineSlope;
-    volatile int l_fLineBias;
-
-*/
-
-
 
 };
 

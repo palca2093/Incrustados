@@ -29,12 +29,12 @@ uint8_t Scheduler::attach(Task * i_pTask, TaskType i_enTaskType, TaskActive i_en
 
     l_stTaskInfo.pTask = i_pTask;
     l_stTaskInfo.bTaskIsActive = i_enTaskIsActive;
-    l_stTaskInfo.u64ticks = this->m_u64ticks;
+    l_stTaskInfo.u64ticks = this -> m_u64ticks;
     l_stTaskInfo.u64TickInterval = 0;
 	l_stTaskInfo.u64TickIntervalInitValue = i_u64TickInterval;
 	l_stTaskInfo.enTaskType = i_enTaskType;
 
-    if((m_u8OpenSlots>0) && (m_u8NextSlot < NUMBER_OF_SLOTS))
+    if((m_u8OpenSlots > 0) && (m_u8NextSlot < NUMBER_OF_SLOTS))
     {
         m_aSchedule[m_u8NextSlot] =  l_stTaskInfo;
         m_u8OpenSlots--;
@@ -63,6 +63,7 @@ uint8_t Scheduler::setup(void)
     //Get number of attached tasks
 
     m_u8TaskCount = NumberOfTasks();
+    SCHEDULER_MAILBOX = m_u8TaskCount;
 
     //Setup Mailbox size depending on the number of tasks
 

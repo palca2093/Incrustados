@@ -417,7 +417,7 @@ void Crystalfontz128x128_LineDrawH(const Graphics_Display *pDisplay,
                                           int16_t lX1,
                                           int16_t lX2,
                                           int16_t lY,
-                                          uint16_t ulValue)
+                                          uint32_t ulValue)
 {
 
 

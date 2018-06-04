@@ -20,8 +20,19 @@ class Task
 		uint8_t             GetTaskPriority(void) {return m_u8Priority;};
 		void                SetTaskPriority(uint8_t i_u8NewPriority){m_u8Priority = i_u8NewPriority;};
 
-		st_Message          getMessage(uint8_t i_u8TaskID);
+		bool                TaskDependencies;
+		uint16_t            DependencyCode;
+		uint16_t            MessageHandledCode;
+
+		st_Message          getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode = ANY_MESSAGE);
 		void                sendMessage(st_Message i_stMessage);
+
+		st_Message          GetDefaultMessage(void);
+		void                MarkMessaeAsInvalid(uint8_t i_u8TaskID, uint8_t i_u8MessagePossition);
+		uint16_t            GetMaxMessageQueue(void);
+
+		bool CheckMessageIntegrity(st_Message i_stMessage);
+
 
 	private:
 

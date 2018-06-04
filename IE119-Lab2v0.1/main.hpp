@@ -108,28 +108,7 @@ void Setup(void)
     NVIC_EnableIRQ(ADC14_IRQn);
 
 
-    // ****************************
-    //         LCD CONFIG
-    // ****************************
-    // - Initialize LCD screen using Crystalfontz driver.
-    // - Screen will be colored completely after configuration initial run.
-    // - Device configuration details can be seen in the following lines.
 
-    // Necessary data structures for the driver to work
-
-    Graphics_Context    g_stGraphicContext;
-    Graphics_Display    g_stDisplay;
-
-    Crystalfontz128x128_Init(); // Initializes LCD display
-
-    Crystalfontz128x128_SetOrientation(LCD_ORIENTATION_UP); // Set default screen orientation
-
-  // Initializes graphics context
-    Graphics_initContext        (&g_stGraphicContext,           // Pointer to drawing context to use
-                                 &g_stDisplay,                  // Display driver
-                                 &g_sCrystalfontz128x128_funcs);// Graphic functions
-
-    Graphics_setBackgroundColor (&g_stGraphicContext, GRAPHICS_COLOR_BLACK);
 
 
     // ****************************
