@@ -209,7 +209,7 @@ void Crystalfontz128x128_SetOrientation(uint8_t orientation)
 //
 //*****************************************************************************
 static void Crystalfontz128x128_PixelDraw(const Graphics_Display *pDisplay,
-	                                        int16_t lX,
+                                            int16_t lX,
                                           int16_t lY,
                                           uint16_t ulValue)
 {
@@ -616,4 +616,3 @@ const Graphics_Display_Functions g_sCrystalfontz128x128_funcs =
     Crystalfontz128x128_ClearScreen
 
 };
-

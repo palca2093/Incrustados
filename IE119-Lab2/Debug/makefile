@@ -12,8 +12,6 @@ GEN_CMDS__FLAG :=
 ORDERED_OBJS += \
 "./HAL_I2C.obj" \
 "./HAL_OPT3001.obj" \
-"./LCD.obj" \
-"./LED.obj" \
 "./Lab2utilities.obj" \
 "./Mailbox.obj" \
 "./Scheduler.obj" \
@@ -23,6 +21,10 @@ ORDERED_OBJS += \
 "./system_msp432p401r.obj" \
 "./LcdDriver/Crystalfontz128x128_ST7735.obj" \
 "./LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" \
+"./Tasks/LED.obj" \
+"./Tasks/LINE_COUNT.obj" \
+"./Tasks/SCREEN_UPDATE.obj" \
+"./Tasks/UPDATE_ADC.obj" \
 "./ccs/startup_msp432p401r_ccs.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -43,9 +45,11 @@ RMDIR := RMDIR /S/Q
 -include sources.mk
 -include subdir_vars.mk
 -include LcdDriver/subdir_vars.mk
+-include Tasks/subdir_vars.mk
 -include ccs/subdir_vars.mk
 -include subdir_rules.mk
 -include LcdDriver/subdir_rules.mk
+-include Tasks/subdir_rules.mk
 -include ccs/subdir_rules.mk
 -include objects.mk
 
@@ -177,9 +181,9 @@ IE119-Lab2.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "HAL_I2C.obj" "HAL_OPT3001.obj" "LCD.obj" "LED.obj" "Lab2utilities.obj" "Mailbox.obj" "Scheduler.obj" "Task.obj" "main.obj" "mainViejo.obj" "system_msp432p401r.obj" "LcdDriver\Crystalfontz128x128_ST7735.obj" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "ccs\startup_msp432p401r_ccs.obj" 
+	-$(RM) "HAL_I2C.obj" "HAL_OPT3001.obj" "Lab2utilities.obj" "Mailbox.obj" "Scheduler.obj" "Task.obj" "main.obj" "mainViejo.obj" "system_msp432p401r.obj" "LcdDriver\Crystalfontz128x128_ST7735.obj" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "Tasks\LED.obj" "Tasks\LINE_COUNT.obj" "Tasks\SCREEN_UPDATE.obj" "Tasks\UPDATE_ADC.obj" "ccs\startup_msp432p401r_ccs.obj" 
 	-$(RM) "HAL_I2C.d" "HAL_OPT3001.d" "system_msp432p401r.d" "LcdDriver\Crystalfontz128x128_ST7735.d" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" "ccs\startup_msp432p401r_ccs.d" 
-	-$(RM) "LCD.d" "LED.d" "Lab2utilities.d" "Mailbox.d" "Scheduler.d" "Task.d" "main.d" "mainViejo.d" 
+	-$(RM) "Lab2utilities.d" "Mailbox.d" "Scheduler.d" "Task.d" "main.d" "mainViejo.d" "Tasks\LED.d" "Tasks\LINE_COUNT.d" "Tasks\SCREEN_UPDATE.d" "Tasks\UPDATE_ADC.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

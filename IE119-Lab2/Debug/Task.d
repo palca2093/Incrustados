@@ -22,6 +22,14 @@ Task.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Incl
 Task.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_ccs.h
 Task.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 Task.obj: ../Mailbox.hpp
+Task.obj: ../Tasks/Message_Codes.hpp
+Task.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
+Task.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h
+Task.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
+Task.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h
+Task.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h
+Task.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h
+Task.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h
 
 ../Task.cpp: 
 ../Task.hpp: 
@@ -45,3 +53,11 @@ C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_ccs.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 ../Mailbox.hpp: 
+../Tasks/Message_Codes.hpp: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h: 

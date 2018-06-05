@@ -90,24 +90,6 @@ void Lab2_utilities::TIMER32_1_CONF(unsigned int i_u32Time)
 
 }
 
-/*void Lab2_utilities::LCD_CONF(Graphics_Context *i_stGraphicContext)
-{
-    Crystalfontz128x128_Init(); // Initializes LCD display
-
-    Crystalfontz128x128_SetOrientation(LCD_ORIENTATION_UP); // Set default screen orientation
-
-    // Initializes graphics context
-    Graphics_initContext        (i_stGraphicContext, &g_sCrystalfontz128x128);
-    Graphics_setForegroundColor (i_stGraphicContext, GRAPHICS_COLOR_RED);
-    Graphics_setBackgroundColor (i_stGraphicContext, GRAPHICS_COLOR_WHITE);
-    GrContextFontSet            (i_stGraphicContext, &g_sFontFixed6x8);
-
-    //drawTitle();
-
-
-} */
-
-
 void Lab2_utilities::LCD_CONF()
 {
     Crystalfontz128x128_Init(); // Initializes LCD display
@@ -119,7 +101,7 @@ void Lab2_utilities::LCD_CONF()
                                  &g_stDisplay,                  // Display driver
                                  &g_sCrystalfontz128x128_funcs);// Graphic functions
 
-    Graphics_setBackgroundColor (&g_stGraphicContext, GRAPHICS_COLOR_BLACK);
+    Graphics_setBackgroundColor (&g_stGraphicContext, GRAPHICS_COLOR_BLUE);
 }
 
 

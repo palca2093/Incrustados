@@ -1,16 +1,20 @@
-#include <ti/devices/msp432p4xx/inc/msp.h>
 #include "main.hpp"
 #include "Scheduler.hpp"
 #include "Task.hpp"
-#include "LED.hpp"
+#include "Tasks/LED.hpp"
 
 // ##########################
 // Global/Static declarations
 // ##########################
+
+int g_iHeartBeatCount = 0;
+
 uint8_t Task::m_u8NextTaskID = 0; // - Init task ID
 
 volatile static uint64_t g_SystemTicks = 0; // - The system counter.
+
 Mailbox* g_Mailbox = Mailbox::getMailbox();
+
 Scheduler g_MainScheduler; // - Instantiate a Scheduler
 
 // #########################
@@ -18,16 +22,55 @@ Scheduler g_MainScheduler; // - Instantiate a Scheduler
 // #########################
 void main(void)
 {
-    // - Instantiate two new Tasks
-    LED BlueLED(BIT2);
-    LED GreenLED(BIT1);
+
+    /* Sentencias que se ocupan
+
+    //Cargar Task Info en posicion "i" en variable intermedia B
+
+    st_TaskInfo B = m_aSchedule[i];
+
+    //Acceder a los parametros NeededData y Handled Data de B
+
+    B.pTask -> GetNeededData();
+    B.pTask -> GetHandledData();
+
+    //Despues de comparar, guardar el destination ID
+
+    (B.pTask -> DestinationID) = 1;
+
+    Comando para malloc
+
+    uint8_t * l_pNombrePuntero = (uint8_t *) malloc(l_i16ValidTaskSlots);
+
+
+    Recordar que para "sacar" lo que hay en la posicion de memoria
+    a la que apunta el puntero, se usa el operador  para dereferenciar "*"
+
+    ejemplo:
+
+    A = *B; //Guardar en A lo que hay en la posicion de memoria marcada por B
+
+    */
+
+    // - Instantiate new Tasks
+    LED BlueLED1(BIT1);
+    LED GreenLED1(BIT1);
+    LED BlueLED2(BIT2);
+    LED GreenLED2(BIT2);
+
     // - Run the overall setup function for the system
     Setup();
+
     // - Attach the Tasks to the Scheduler;
-    g_MainScheduler.attach(&BlueLED,TaskType_Periodic, TaskActiveTrue,500);
-    g_MainScheduler.attach(&GreenLED, TaskType_Periodic,TaskActiveFalse,600);
+    g_MainScheduler.attach(&BlueLED1, TaskType_Periodic,TaskActiveFalse,400);
+    g_MainScheduler.attach(&GreenLED1, TaskType_Periodic,TaskActiveTrue,600);
+    //g_MainScheduler.attach(&BlueLED1, TaskType_Periodic,TaskActiveFalse,300);
+    //g_MainScheduler.attach(&GreenLED2, TaskType_Periodic,TaskActiveTrue,700);
+    //g_MainScheduler.attach(&BlueLED,TaskType_Periodic, TaskActiveFalse,500);
+
     // - Run the Setup for the scheduler and all tasks
     g_MainScheduler.setup();
+
     // - Main Loop
     while(1)
     {
@@ -36,55 +79,70 @@ void main(void)
         {
             //- Only execute the tasks if one tick has passed.
             g_MainScheduler.m_u64ticks = g_SystemTicks;
+
             g_MainScheduler.run();
         }
     }
 }
 
-// **********************************
-// Setup function for the application
-// @input - none
-// @output - none
-// **********************************
-void Setup(void)
-{
-	// ****************************
-	//         DEVICE CONFIG
-	// ****************************
-	// - Disable WDT
-	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;
-
-	// ****************************
-	//         PORT CONFIG
-	// ****************************
-	// - P1.0 is connected to the Red LED
-	// - This is the heart beat indicator.
-	P1->DIR |= BIT0; //Red LED
-
-	// ****************************
-	//       TIMER CONFIG
-	// ****************************
-	// - Configure Timer32_1  with MCLK (3Mhz), Division by 1, Enable the interrupt, Periodic Mode
-	// - Enable the interrupt in the NVIC
-	// - Start the timer in UP mode.
-	// - Re-enable interrupts
-	TIMER32_1->LOAD = TIMER32_COUNT; //~1ms ---> a 3Mhz
-	TIMER32_1->CONTROL = TIMER32_CONTROL_SIZE | TIMER32_CONTROL_PRESCALE_0 | TIMER32_CONTROL_MODE | TIMER32_CONTROL_IE | TIMER32_CONTROL_ENABLE;
-	NVIC_SetPriority(T32_INT1_IRQn,1);
-	NVIC_EnableIRQ(T32_INT1_IRQn);
-	__enable_irq();
-
-	return;
-}
 
 extern "C"
 {
     // - Handle the Timer32 Interrupt
 	void T32_INT1_IRQHandler(void)
 	{
+	    __disable_irq();
+
 		TIMER32_1->INTCLR = 0U;
-		P1->OUT ^= BIT0; // - Toggle the heart beat indicator (1ms)
+
+		g_iHeartBeatCount++;
+
+		if(g_iHeartBeatCount >= 500)
+		{
+		    P1->OUT ^= BIT0; // - Toggle the heart beat indicator
+		    g_iHeartBeatCount = 0;
+		}
+
 		g_SystemTicks++;
+
+		__enable_irq();
+
 		return;
 	}
+
+
+
+    void ADC14_IRQHandler(void) //ADC14 interruption handler
+    {
+        __disable_irq();
+
+        ADC14->CLRIFGR0 = ADC14_CLRIFGR0_CLRIFG0; //Clearing the ADC interrupt flag
+
+        ADC14 -> IER0 &= ~(ADC14_IER0_IE0); //Disable ADC interrupt for ADC14IFG0 bit
+
+        __enable_irq();
+
+        return;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -68,7 +68,7 @@ MEMORY
 /* A heap size of 1024 bytes is recommended when you plan to use printf()    */
 /* for debug output to the console window.                                   */
 /*                                                                           */
-/* --heap_size=1024                                                          */
+ --heap_size=1024
 /* --stack_size=512                                                          */
 /* --library=rtsv7M4_T_le_eabi.lib                                           */
 

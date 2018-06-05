@@ -107,7 +107,7 @@ void HAL_LCD_writeCommand(uint8_t command)
 // interface to the LCD display.
 //
 //*****************************************************************************
-void HAL_LCD_writeData(uint8_t data)
+void HAL_LCD_writeData(uint32_t data)
 {
     // USCI_B0 Busy? //
     while (UCB0STATW & UCBUSY);
