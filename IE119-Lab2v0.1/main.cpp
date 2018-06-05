@@ -1,4 +1,3 @@
-//#include <ti/devices/msp432p4xx/inc/msp.h>
 #include "main.hpp"
 #include "Scheduler.hpp"
 #include "Task.hpp"
@@ -62,6 +61,8 @@ extern "C"
     // - Handle the Timer32 Interrupt
 	void T32_INT1_IRQHandler(void)
 	{
+	    __disable_irq();
+
 		TIMER32_1->INTCLR = 0U;
 
 		g_iHeartBeatCount++;
@@ -73,6 +74,45 @@ extern "C"
 		}
 
 		g_SystemTicks++;
+
+		__enable_irq();
+
 		return;
 	}
+
+
+
+    void ADC14_IRQHandler(void) //ADC14 interruption handler
+    {
+        __disable_irq();
+
+        ADC14->CLRIFGR0 = ADC14_CLRIFGR0_CLRIFG0; //Clearing the ADC interrupt flag
+
+        ADC14 -> IER0 &= ~(ADC14_IER0_IE0); //Disable ADC interrupt for ADC14IFG0 bit
+
+        __enable_irq();
+
+        return;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

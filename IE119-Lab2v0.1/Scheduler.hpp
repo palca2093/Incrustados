@@ -52,7 +52,11 @@ class Scheduler
 {
 public:
     Scheduler();
+
+    //Scheduler tick count
     uint64_t m_u64ticks;
+
+    //Main methods
     uint8_t attach(Task * i_pTask, TaskType i_enType, TaskActive i_enTaskActive, uint64_t i_u64TickInterval = 0U);
     uint8_t run(void);
     uint8_t setup(void);
@@ -63,17 +67,26 @@ private:
     uint8_t m_u8NextSlot;  // - Next available slot
     volatile int m_u8TaskCount; // - Number of tasks attached
 
+    Mailbox* m_pMailbox;
+
+    uintptr_t m_pNextSchedule; // - Pointer to the next schedule.
+
     st_TaskInfo m_aSchedule[NUMBER_OF_SLOTS]; // - Current schedule to be executed
 
     st_TaskInfo m_aNextSchedule[NUMBER_OF_SLOTS]; // - Next schedule to be executed (not implemented)
 
+    uint8_t SCHEDULER_MAILBOX; //Position of the mailbox slot for the scheduler
+
+
     uint8_t CalculateNextSchedule(void); // - Calculate next schedule tasks (not implemented)
+    uint8_t NumberOfTasks(void);
+
+
     //uint8_t SortScheduleByPriority(Task * i_pSchedule);
     uint8_t SortScheduleByPriority(void); // - Sorts a schedule based on priority (not implemented)
-    uintptr_t m_pNextSchedule; // - Pointer to the next schedule.
-    Mailbox* m_pMailbox;
-    uint8_t NumberOfTasks(void);
-    uint8_t SCHEDULER_MAILBOX;
+
+
+
 };
 
 

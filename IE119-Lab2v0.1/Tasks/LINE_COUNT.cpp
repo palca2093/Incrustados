@@ -6,6 +6,11 @@ uint8_t LINE_COUNT::run()
     // Transform ADC Y value into number of blue lines
     //################################################
 
+
+    //ADC14 -> MEM[0] = X coordinate
+    //ADC14 -> MEM[1] = Y coordinate
+    //ADC14 -> MEM[2] = Z coordinate
+
     //Necessary variables to function
 
     st_Message l_stReceivedMessage = getMessage(this -> m_u8TaskID, ADC_Y_READ);

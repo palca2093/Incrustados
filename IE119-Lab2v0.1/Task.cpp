@@ -41,13 +41,6 @@ st_Message Task::GetDefaultMessage(void)
    return (m_pMailbox -> GetDefaultMessage());
 }
 
-
-void Task::MarkMessaeAsInvalid( uint8_t i_u8TaskID, uint8_t i_u8MessagePossition )
-{
-    m_pMailbox -> MarkMessaeAsInvalid(i_u8TaskID, i_u8MessagePossition);
-
-}
-
 uint16_t Task::GetMaxMessageQueue(void)
 {
     return ( m_pMailbox -> GetMaxMessageQueue() );

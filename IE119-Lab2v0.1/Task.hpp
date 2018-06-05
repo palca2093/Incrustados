@@ -28,7 +28,6 @@ class Task
 		void                sendMessage(st_Message i_stMessage);
 
 		st_Message          GetDefaultMessage(void);
-		void                MarkMessaeAsInvalid(uint8_t i_u8TaskID, uint8_t i_u8MessagePossition);
 		uint16_t            GetMaxMessageQueue(void);
 
 		bool CheckMessageIntegrity(st_Message i_stMessage);
