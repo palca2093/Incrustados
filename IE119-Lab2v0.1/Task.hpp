@@ -43,13 +43,18 @@ class Task
 	   Mailbox* m_pMailbox;
 	   bool bDependencyStatus;             // - True when there are no dependencies left to attend
 
-	   //Variables that mark the MessageCode of the dependencies of the task
-	   uint32_t l_ui32NeededData    = NULL_DATA;
-	   uint32_t l_ui32HandledData   = NULL_DATA;
+
 
 
 	protected:
 	   bool m_bIsFinished;
+
+       //Variables that mark the MessageCode of the dependencies of the task
+       uint32_t l_ui32NeededData    = NULL_DATA;
+       uint32_t l_ui32HandledData   = NULL_DATA;
+
+
+
 };
 
 #endif /* TASK_HPP_ */

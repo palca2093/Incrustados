@@ -38,6 +38,7 @@ uint8_t UPDATE_ADC::run()
 
 uint8_t UPDATE_ADC::setup()
 {
+    l_ui32HandledData = ADC_Y_READ;
 
     // ****************************
     //         ADC CONFIG

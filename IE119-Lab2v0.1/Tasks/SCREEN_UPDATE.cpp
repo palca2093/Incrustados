@@ -72,6 +72,9 @@ uint8_t SCREEN_UPDATE::run()
 
 uint8_t SCREEN_UPDATE::setup()
 {
+
+    l_ui32NeededData    = LINE_NUMBER;
+
     // ****************************
     //         LCD SETUP
     // ****************************

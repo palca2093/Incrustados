@@ -47,6 +47,10 @@ uint8_t LINE_COUNT::run()
 
 uint8_t LINE_COUNT::setup()
 {
+
+    l_ui32NeededData    = ADC_Y_READ;
+    l_ui32HandledData   = LINE_NUMBER;
+
     //#####################################
     // Constants of linear transformation
     //#####################################

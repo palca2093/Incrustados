@@ -47,6 +47,20 @@ uint16_t Task::GetMaxMessageQueue(void)
 }
 
 
+uint32_t Task::GetNeededData(void)
+{
+    return l_ui32NeededData;
+}
+
+
+
+uint32_t Task::GetHandledData(void)
+{
+    return l_ui32HandledData;
+}
+
+
+
 
 
 
