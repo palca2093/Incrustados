@@ -77,6 +77,9 @@ private:
 
     uint8_t SCHEDULER_MAILBOX; //Position of the mailbox slot for the scheduler
 
+    int l_i16ValidTaskSlots;
+
+
 
     uint8_t CalculateNextSchedule(void); // - Calculate next schedule tasks (not implemented)
     uint8_t NumberOfTasks(void);

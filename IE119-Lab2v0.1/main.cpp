@@ -22,6 +22,36 @@ Scheduler g_MainScheduler; // - Instantiate a Scheduler
 // #########################
 void main(void)
 {
+
+    /* Sentencias que se ocupan
+
+    //Cargar Task Info en posicion "i" en variable intermedia B
+
+    st_TaskInfo B = m_aSchedule[i];
+
+    //Acceder a los parametros NeededData y Handled Data de B
+
+    B.pTask -> GetNeededData();
+    B.pTask -> GetHandledData();
+
+    //Despues de comparar, guardar el destination ID
+
+    (B.pTask -> DestinationID) = 1;
+
+    Comando para malloc
+
+    uint8_t * l_pNombrePuntero = (uint8_t *) malloc(l_i16ValidTaskSlots);
+
+
+    Recordar que para "sacar" lo que hay en la posicion de memoria
+    a la que apunta el puntero, se usa el operador  para dereferenciar "*"
+
+    ejemplo:
+
+    A = *B; //Guardar en A lo que hay en la posicion de memoria marcada por B
+
+    */
+
     // - Instantiate new Tasks
     LED BlueLED1(BIT1);
     LED GreenLED1(BIT1);

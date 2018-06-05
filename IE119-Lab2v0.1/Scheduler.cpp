@@ -99,6 +99,7 @@ uint8_t Scheduler::run(void)
 
    // CalculateNextSchedule();
 
+
     while(l_u8NextSlot < NUMBER_OF_SLOTS)
     {
         l_pNextTask = static_cast<Task *> (m_aSchedule[l_u8NextSlot].pTask);
@@ -163,7 +164,7 @@ uint8_t Scheduler::run(void)
 uint8_t Scheduler::CalculateNextSchedule(void)
 {
 
-    int l_i16ValidTaskSlots = NumberOfTasks();
+    l_i16ValidTaskSlots = NumberOfTasks();
 
     //Allocate memory to order Tasks
 
@@ -301,6 +302,12 @@ uint8_t Scheduler::NumberOfTasks(void)
 
         return l_i16ValidTaskSlots;
 }
+
+
+
+
+
+
 
 
 
