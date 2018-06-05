@@ -61,10 +61,13 @@ uint8_t SCREEN_UPDATE::run()
             i_i16PreviousLines = i_i16CurrentLines;
 
 
-        return(NO_ERR);
+
+            free(&l_stReceivedMessage);
+            return(NO_ERR);
     }
 
-    return(NO_ERR);
+    free(&l_stReceivedMessage);
+    return(RET_ERR);
 }
 
 uint8_t SCREEN_UPDATE::setup()

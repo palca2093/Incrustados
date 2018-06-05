@@ -8,7 +8,6 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./Lab2utilities.obj" \
 "./Mailbox.obj" \
 "./Scheduler.obj" \
 "./Task.obj" \
@@ -176,9 +175,9 @@ IE119-Lab2v0.1.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Lab2utilities.obj" "Mailbox.obj" "Scheduler.obj" "Task.obj" "main.obj" "system_msp432p401r.obj" "LcdDriver/Crystalfontz128x128_ST7735.obj" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "Tasks/LED.obj" "Tasks/LINE_COUNT.obj" "Tasks/SCREEN_UPDATE.obj" "Tasks/UPDATE_ADC.obj" "ccs/startup_msp432p401r_ccs.obj" 
+	-$(RM) "Mailbox.obj" "Scheduler.obj" "Task.obj" "main.obj" "system_msp432p401r.obj" "LcdDriver/Crystalfontz128x128_ST7735.obj" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "Tasks/LED.obj" "Tasks/LINE_COUNT.obj" "Tasks/SCREEN_UPDATE.obj" "Tasks/UPDATE_ADC.obj" "ccs/startup_msp432p401r_ccs.obj" 
 	-$(RM) "system_msp432p401r.d" "LcdDriver/Crystalfontz128x128_ST7735.d" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" "ccs/startup_msp432p401r_ccs.d" 
-	-$(RM) "Lab2utilities.d" "Mailbox.d" "Scheduler.d" "Task.d" "main.d" "Tasks/LED.d" "Tasks/LINE_COUNT.d" "Tasks/SCREEN_UPDATE.d" "Tasks/UPDATE_ADC.d" 
+	-$(RM) "Mailbox.d" "Scheduler.d" "Task.d" "main.d" "Tasks/LED.d" "Tasks/LINE_COUNT.d" "Tasks/SCREEN_UPDATE.d" "Tasks/UPDATE_ADC.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

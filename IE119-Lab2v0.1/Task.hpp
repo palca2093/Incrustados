@@ -30,6 +30,9 @@ class Task
 		st_Message          GetDefaultMessage(void);
 		uint16_t            GetMaxMessageQueue(void);
 
+		uint32_t            GetNeededData(void);
+		uint32_t            GetHandledData(void);
+
 		bool CheckMessageIntegrity(st_Message i_stMessage);
 
 
@@ -39,6 +42,11 @@ class Task
 	   uint8_t m_u8Priority;
 	   Mailbox* m_pMailbox;
 	   bool bDependencyStatus;             // - True when there are no dependencies left to attend
+
+	   //Variables that mark the MessageCode of the dependencies of the task
+	   uint32_t l_ui32NeededData    = NULL_DATA;
+	   uint32_t l_ui32HandledData   = NULL_DATA;
+
 
 	protected:
 	   bool m_bIsFinished;

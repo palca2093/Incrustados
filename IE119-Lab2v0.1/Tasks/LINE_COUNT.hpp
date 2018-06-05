@@ -23,6 +23,8 @@ class LINE_COUNT : public Task
         float l_fLineSlope;
         float l_fLineBias;
 
+
+
 };
 
 #endif /* LINE_COUNT_HPP_ */

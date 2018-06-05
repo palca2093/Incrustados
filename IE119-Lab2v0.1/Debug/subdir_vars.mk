@@ -4,7 +4,6 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../Lab2utilities.cpp \
 ../Mailbox.cpp \
 ../Scheduler.cpp \
 ../Task.cpp \
@@ -20,7 +19,6 @@ C_DEPS += \
 ./system_msp432p401r.d 
 
 OBJS += \
-./Lab2utilities.obj \
 ./Mailbox.obj \
 ./Scheduler.obj \
 ./Task.obj \
@@ -28,14 +26,12 @@ OBJS += \
 ./system_msp432p401r.obj 
 
 CPP_DEPS += \
-./Lab2utilities.d \
 ./Mailbox.d \
 ./Scheduler.d \
 ./Task.d \
 ./main.d 
 
 OBJS__QUOTED += \
-"Lab2utilities.obj" \
 "Mailbox.obj" \
 "Scheduler.obj" \
 "Task.obj" \
@@ -46,14 +42,12 @@ C_DEPS__QUOTED += \
 "system_msp432p401r.d" 
 
 CPP_DEPS__QUOTED += \
-"Lab2utilities.d" \
 "Mailbox.d" \
 "Scheduler.d" \
 "Task.d" \
 "main.d" 
 
 CPP_SRCS__QUOTED += \
-"../Lab2utilities.cpp" \
 "../Mailbox.cpp" \
 "../Scheduler.cpp" \
 "../Task.cpp" \

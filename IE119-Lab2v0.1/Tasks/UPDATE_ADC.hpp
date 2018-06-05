@@ -16,6 +16,8 @@ class UPDATE_ADC : public Task
     protected:
 
     private:
+        //Variable to check if the interruption was triggered by ADC
+        volatile uint32_t * l_pADCInterruptCheck = &(ADC14 -> IER0);
 };
 
 #endif /* LINE_COUNT_HPP_ */

@@ -6,16 +6,9 @@ uint8_t LINE_COUNT::run()
     // Transform ADC Y value into number of blue lines
     //################################################
 
+    //Get message from the ADC_UPDATE task
 
-    //ADC14 -> MEM[0] = X coordinate
-    //ADC14 -> MEM[1] = Y coordinate
-    //ADC14 -> MEM[2] = Z coordinate
-
-    //Necessary variables to function
-
-    st_Message l_stReceivedMessage = getMessage(this -> m_u8TaskID, ADC_Y_READ);
-
-    st_Message l_stMessage2Send = GetDefaultMessage();
+    st_Message l_stReceivedMessage = getMessage(this -> m_u8TaskID, ADC_Y_READ);;
 
     if( CheckMessageIntegrity(l_stReceivedMessage) == VALID_MESSAGE)
     {
@@ -27,6 +20,8 @@ uint8_t LINE_COUNT::run()
 
         //Prepare message to be sent
 
+        st_Message l_stMessage2Send = GetDefaultMessage();
+
         l_stMessage2Send.bMessageValid      = VALID_MESSAGE;
         //l_stMessage2Send.u8DestinationID  = yarayara
         l_stMessage2Send.u16MessageCode     = LINE_NUMBER;
@@ -37,8 +32,14 @@ uint8_t LINE_COUNT::run()
         //Send message
         sendMessage(l_stMessage2Send);
 
+        //Free the memory used for the received and sent messages
+        free(&l_stReceivedMessage);
+        free(&l_stMessage2Send);
+
         return(NO_ERR);
     }
+
+    free(&l_stReceivedMessage);
 
     return(RET_ERR);
 
