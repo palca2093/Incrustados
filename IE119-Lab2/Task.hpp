@@ -35,6 +35,8 @@ class Task
 
 		bool CheckMessageIntegrity(st_Message i_stMessage);
 
+		uint8_t             DestinationID;
+
 
 	private:
 
@@ -52,6 +54,7 @@ class Task
        //Variables that mark the MessageCode of the dependencies of the task
        uint32_t l_ui32NeededData    = NULL_DATA;
        uint32_t l_ui32HandledData   = NULL_DATA;
+
 
 
 
