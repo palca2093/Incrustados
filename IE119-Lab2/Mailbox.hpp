@@ -15,6 +15,8 @@
 #include <stdlib.h>
 
 #define MAX_MESSAGE_QUEUE 50
+const int NUMBER_OF_TASKS = 3 + 1; // +1 Because of the slot for the Scheduler
+const int NUMBER_OF_MESSAGES_PER_TASK = MAX_MESSAGE_QUEUE/(NUMBER_OF_TASKS);
 
 const uint8_t BROADCAST_MESSAGE  = 0U;
 const uint8_t RESTRICTED_MESSAGE = 1;
@@ -60,16 +62,22 @@ private:
     static Mailbox* MailObj;
 
     void            MessageAccessWrite(uint8_t i_u8TaskID , st_Message i_stMessage2Write);
-    st_Message *    MessageAccessRead(uint8_t i_u8TaskID ,uint8_t i_u8MessagePosition);
+    void            WriteOnSpecificPosition(uint8_t i_u8TaskID ,
+                                            uint8_t l_u8Slot2Write, st_Message i_stMessage2Write);
+    st_Message    MessageAccessRead(uint8_t i_u8TaskID ,uint8_t i_u8MessagePosition);
 
     uint8_t         FindMessageSlot(uint8_t i_u8TaskID,
                                     bool i_bMessageValidity,
                                     uint16_t i_u16MessageCode = ANY_MESSAGE
                                     );
 
+    st_Message m_CompleteMailbox[NUMBER_OF_TASKS][NUMBER_OF_MESSAGES_PER_TASK];
+
+
+
     st_Message m_stDefaultMessage;
-    uint16_t l_i16MaxQueuePerTask;
-    uint16_t l_i16NumberOfTasks;
+    uint16_t l_i16MaxQueuePerTask = NUMBER_OF_MESSAGES_PER_TASK;
+    uint16_t l_i16NumberOfTasks = NUMBER_OF_TASKS - 1; //Only considers tasks not the scheduler
 
     //Pointer with the list of each task mailbox
     st_Message ** l_pListOfTasksMessages;

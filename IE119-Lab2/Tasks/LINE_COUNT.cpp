@@ -51,12 +51,5 @@ uint8_t LINE_COUNT::setup()
     l_ui32NeededData    = ADC_Y_READ;
     l_ui32HandledData   = LINE_NUMBER;
 
-    //#####################################
-    // Constants of linear transformation
-    //#####################################
-
-    l_fLineSlope = 127/(MIN_VALUE_ADC - MAX_VALUE_ADC);
-    l_fLineBias  = -l_fLineSlope*MAX_VALUE_ADC;
-
     return(NO_ERR);
 }

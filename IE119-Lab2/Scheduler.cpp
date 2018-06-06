@@ -351,6 +351,7 @@ void Scheduler::PairTasks(void)
                         (l_stTaskThatNeedsData.pTask -> GetNeededData()) )
                 {
                     l_stTaskThatHandledsDataNeeds.pTask -> DestinationID = l_i16TaskIDCounter2;
+                    break;
                 }
 
            }

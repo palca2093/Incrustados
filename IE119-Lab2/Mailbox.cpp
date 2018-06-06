@@ -42,8 +42,60 @@ extern "C"
 
 //#######################################################################
 //#######################################################################
+st_Message Mailbox::getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode)
+{
+    //Temporal used variables
 
-    st_Message Mailbox::getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode)
+    st_Message l_stControlMessage2Read; //To check number of valid messages
+    st_Message l_stOverwriteMessage;    //Structure needed to mark the read message as invalid
+    st_Message l_stMessage2Return;      //Message to return
+
+    //Load Control Message
+
+    l_stControlMessage2Read =  MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT);
+    //l_stControlMessage2Read = *( MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT) );
+
+
+    if( l_stControlMessage2Read.u8NumberOfMessages > 0)
+    {
+        //Find Valid Message to read
+        uint8_t l_u8Slot2Read = FindMessageSlot(i_u8TaskID, VALID_MESSAGE, i_u16MessageCode);
+
+        l_stMessage2Return = MessageAccessRead(i_u8TaskID, l_u8Slot2Read);
+
+        l_stOverwriteMessage = l_stMessage2Return;
+
+        //Mark message as invalid so it can be taken out of queue
+
+        l_stOverwriteMessage.bMessageValid = INVALID_MESSAGE;
+
+        //Write the changes on queued message
+        WriteOnSpecificPosition(i_u8TaskID, l_u8Slot2Read, l_stOverwriteMessage);
+
+        //Reduce number of valid messages since since the message was read
+        l_stControlMessage2Read.u8NumberOfMessages--;
+
+        //Write the changes on the control message
+
+        WriteOnSpecificPosition(i_u8TaskID, MAILBOX_INFO_SLOT, l_stControlMessage2Read);
+
+        //Free used memory
+        free(&l_stControlMessage2Read);
+        free(&l_stOverwriteMessage);
+
+        return(l_stMessage2Return);
+
+    }
+
+    else
+    {
+        return(m_stDefaultMessage);
+    }
+}
+
+
+
+/*    st_Message Mailbox::getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode)
     {
         st_Message l_stMessage2Return;
 
@@ -68,7 +120,7 @@ extern "C"
         }
 
         return(m_stDefaultMessage);
-    }
+    } */
 
 
 //#######################################################################
@@ -77,7 +129,7 @@ extern "C"
     void Mailbox::sendMessage(st_Message i_stMessage)
     {
         //Pointer with the information of the mailbox where will be written
-        st_Message * l_stMailboInfoMessage;
+        st_Message l_stMailboInfoMessageContent;
 
         i_stMessage.bMessageValid = true; //Message sent will be valid
 
@@ -91,13 +143,15 @@ extern "C"
                     for(uint16_t l_i16TaskIDCounter = 0; l_i16TaskIDCounter < l_i16NumberOfTasks; l_i16TaskIDCounter++)
                     {
                         //Load first message pointer, which always has the number of valid messages on mailbox
-                        l_stMailboInfoMessage = MessageAccessRead(l_i16TaskIDCounter, MAILBOX_INFO_SLOT);
+                        l_stMailboInfoMessageContent = MessageAccessRead(l_i16TaskIDCounter, MAILBOX_INFO_SLOT);
 
                         // If max number of messages has not been reached, write the input message
-                        if( (l_stMailboInfoMessage -> u8NumberOfMessages) < l_i16MaxQueuePerTask)
+                        if( (l_stMailboInfoMessageContent.u8NumberOfMessages) < l_i16MaxQueuePerTask)
                         {
                             //Raise counter of number of messages in mailbox
-                            (l_stMailboInfoMessage -> u8NumberOfMessages)++;
+                            m_CompleteMailbox[i_stMessage.u8DestinationID ][MAILBOX_INFO_SLOT].u8NumberOfMessages++;
+
+                            //(l_stMailboInfoMessageContent.u8NumberOfMessages)++;
 
                             //Write input message in available position
                             MessageAccessWrite(l_i16TaskIDCounter,
@@ -115,17 +169,22 @@ extern "C"
             case RESTRICTED_MESSAGE:
                 {
                     //Load first message pointer, which always has the number of valid messages on mailbox
-                    l_stMailboInfoMessage = MessageAccessRead( i_stMessage.u8DestinationID , MAILBOX_INFO_SLOT );
+                    l_stMailboInfoMessageContent = MessageAccessRead( i_stMessage.u8DestinationID , MAILBOX_INFO_SLOT );
+
+                    //l_stMailboInfoMessageContent = *l_stMailboInfoMessage;
 
                     // If max number of messages has not been reached, write the input message
-                    if( (l_stMailboInfoMessage -> u8NumberOfMessages) < l_i16MaxQueuePerTask)
+                    if( l_stMailboInfoMessageContent.u8NumberOfMessages < l_i16MaxQueuePerTask)
+                    //if( (l_stMailboInfoMessage -> u8NumberOfMessages) < l_i16MaxQueuePerTask)
                     {
                         //Write input message in available position
                         MessageAccessWrite(i_stMessage.u8DestinationID,
                                            i_stMessage);
 
                         //Raise counter of number of messages in mailbox
-                        (l_stMailboInfoMessage -> u8NumberOfMessages)++;
+                        m_CompleteMailbox[i_stMessage.u8DestinationID ][MAILBOX_INFO_SLOT].u8NumberOfMessages++;
+
+                        //(l_stMailboInfoMessageContent.u8NumberOfMessages)++;
 
 
                     }
@@ -147,6 +206,26 @@ extern "C"
         // of every mailbox retains control data. The last mailbox belongs to the scheduler.
         //############################################################################################
         
+
+
+
+
+        for(short l_i16TaskIDCounter = i_u8NumberOfTasks; l_i16TaskIDCounter >= 0; l_i16TaskIDCounter--)
+        {
+            for(short l_i16MessageCounter = 0; l_i16MessageCounter < NUMBER_OF_MESSAGES_PER_TASK; l_i16MessageCounter++)
+            {
+
+                m_CompleteMailbox[l_i16TaskIDCounter][l_i16MessageCounter] = m_stDefaultMessage;
+
+            }
+        }
+
+        return;
+
+
+
+        /*
+
         l_i16NumberOfTasks = i_u8NumberOfTasks;
 
         //Calculate number of maximum messages per mailbox. Truncation is tolerated
@@ -164,6 +243,7 @@ extern "C"
             *(l_pListOfTasksMessages + l_i16Counter) = (st_Message *) malloc(l_i16MaxQueuePerTask);
         }
 
+
         // Initiate all messages as default
 
         for(short l_i16TaskIDCounter = l_i16NumberOfTasks; l_i16TaskIDCounter >= 0; l_i16TaskIDCounter--)
@@ -177,6 +257,8 @@ extern "C"
 
         return;
 
+        */
+
     }
 
 
@@ -187,9 +269,19 @@ extern "C"
     // Internal class functions to read or write to an specific Mailbox.
     //#################################################################
 
-    st_Message * Mailbox::MessageAccessRead(uint8_t i_u8TaskID ,uint8_t i_u8MessagePosition)
+    st_Message Mailbox::MessageAccessRead(uint8_t i_u8TaskID ,uint8_t i_u8Slot2Read)
     {
-        return (*(l_pListOfTasksMessages + i_u8TaskID)+i_u8MessagePosition);
+        return m_CompleteMailbox[i_u8TaskID][i_u8Slot2Read];
+    }
+
+
+
+    void Mailbox::WriteOnSpecificPosition(uint8_t i_u8TaskID , uint8_t i_u8Slot2Write, st_Message i_stMessage2Write)
+    {
+
+        m_CompleteMailbox[i_u8TaskID][i_u8Slot2Write] = i_stMessage2Write;
+
+        // *(*(l_pListOfTasksMessages + i_u8TaskID) + l_u8Slot2Write) = i_stMessage2Write;
     }
 
 
@@ -203,7 +295,9 @@ extern "C"
         if(l_u8Slot2Save != QUEUE_ERROR)
         {
             //Write input message in available position
-            *(*(l_pListOfTasksMessages + i_u8TaskID) + l_u8Slot2Save) = i_stMessage2Write;
+            m_CompleteMailbox[i_u8TaskID][l_u8Slot2Save] = i_stMessage2Write;
+
+            //*(*(l_pListOfTasksMessages + i_u8TaskID) + l_u8Slot2Save) = i_stMessage2Write;
         }
 
         return;
@@ -230,7 +324,7 @@ extern "C"
             for(uint16_t l_i16ValidMessageCounter = 1;
                     l_i16ValidMessageCounter <= l_i16MaxQueuePerTask; l_i16ValidMessageCounter++)
             {
-                if( (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter) -> bMessageValid) == i_bMessageValidity )
+                if( (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter).bMessageValid) == i_bMessageValidity )
                 {
                     return l_i16ValidMessageCounter;
                 }
@@ -244,8 +338,8 @@ extern "C"
             for(uint16_t l_i16ValidMessageCounter = 1;
                     l_i16ValidMessageCounter <= l_i16MaxQueuePerTask; l_i16ValidMessageCounter++)
             {
-                if( (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter) -> bMessageValid) == i_bMessageValidity
-                        && (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter) -> u16MessageCode == i_u16MessageCode))
+                if( (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter).bMessageValid) == i_bMessageValidity
+                        && (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter).u16MessageCode == i_u16MessageCode))
                 {
                     return l_i16ValidMessageCounter;
                 }
