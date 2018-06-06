@@ -20,8 +20,20 @@ class LINE_COUNT : public Task
 
     private:
         uint16_t i_u16CoordinateY;
-        float l_fLineSlope;
-        float l_fLineBias;
+
+        //#####################################
+        // Constants of linear transformation
+        //#####################################
+
+        const float g_iMinADC = 4800 ;
+        const float g_iMaxADC = 11600;
+
+        const float l_fLineSlope = 127/(g_iMinADC-g_iMaxADC);
+        const float l_fLineBias  = -l_fLineSlope*g_iMaxADC;
+
+
+        //float l_fLineSlope;
+        //float l_fLineBias;
 
 
 

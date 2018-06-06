@@ -10,15 +10,15 @@ uint8_t UPDATE_ADC::run()
     //ADC14 -> MEM[1] = Y coordinate
     //ADC14 -> MEM[2] = Z coordinate
 
-    ADC14 -> IER0 = ADC14_IER0_IE0; //Enable ADC interrupt for ADC14IFG0 bit
+//    ADC14 -> IER0 = ADC14_IER0_IE0; //Enable ADC interrupt for ADC14IFG0 bit
     ADC14 -> CTL0 |= ADC14_CTL0_SC; //Conversion Start?: Yes
 
 
-    while( *l_pADCInterruptCheck  == ADC14_IER0_IE0 ) //Only continue if the ADC interruption passed
+/*    while( *l_pADCInterruptCheck  == ADC14_IER0_IE0 ) //Only continue if the ADC interruption passed
     {
         __wfe(); // Wait for Event
     }
-
+*/
     //Prepare message to be sent
 
     l_stMessage2Send.bMessageValid      = VALID_MESSAGE;
@@ -95,6 +95,7 @@ uint8_t UPDATE_ADC::setup()
                      ADC14_MCTLN_EOS       ;  // End of conversion sequence
 
 
+    ADC14 -> IER0 = ADC14_IER0_IE0; //Enable ADC interrupt for ADC14IFG0 bit
 
     ADC14 -> CTL0 |= ADC14_CTL0_ENC; //Enable conversation
 
