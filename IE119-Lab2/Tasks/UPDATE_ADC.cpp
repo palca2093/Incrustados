@@ -22,7 +22,7 @@ uint8_t UPDATE_ADC::run()
     //Prepare message to be sent
 
     l_stMessage2Send.bMessageValid      = VALID_MESSAGE;
-    //l_stMessage2Send.u8DestinationID  = yarayara
+    l_stMessage2Send.u8DestinationID    = DestinationID;
     l_stMessage2Send.u16MessageCode     = ADC_Y_READ;
     l_stMessage2Send.u8MessageType      = RESTRICTED_MESSAGE;
     l_stMessage2Send.u8SourceID         = this -> m_u8TaskID;

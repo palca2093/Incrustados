@@ -21,6 +21,16 @@ Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/sou
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_compiler.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_ccs.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
+Tasks/SCREEN_UPDATE.obj: /home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Task.hpp
+Tasks/SCREEN_UPDATE.obj: /home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Mailbox.hpp
+Tasks/SCREEN_UPDATE.obj: /home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Tasks/Message_Codes.hpp
+Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
+Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h
+Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
+Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h
+Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h
+Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h
+Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/Escritorio/Incrustados-master/IE119-Lab2/LcdDriver/Crystalfontz128x128_ST7735.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/driverlib.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/adc14.h
@@ -56,16 +66,6 @@ Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/sou
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/grlib/grlib.h
 Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/assert.h
-Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
-Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h
-Tasks/SCREEN_UPDATE.obj: /home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Task.hpp
-Tasks/SCREEN_UPDATE.obj: /home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Mailbox.hpp
-Tasks/SCREEN_UPDATE.obj: /home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Tasks/Message_Codes.hpp
-Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h
-Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h
-Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h
-Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h
-Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h
 
 ../Tasks/SCREEN_UPDATE.cpp: 
 ../Tasks/SCREEN_UPDATE.hpp: 
@@ -88,6 +88,16 @@ Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_compiler.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/third_party/CMSIS/Include/cmsis_ccs.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
+/home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Task.hpp: 
+/home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Mailbox.hpp: 
+/home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Tasks/Message_Codes.hpp: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h: 
+/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h: 
 /home/esteban/Escritorio/Incrustados-master/IE119-Lab2/LcdDriver/Crystalfontz128x128_ST7735.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/driverlib.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/adc14.h: 
@@ -123,13 +133,3 @@ Tasks/SCREEN_UPDATE.obj: /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h: 
 /home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/grlib/grlib.h: 
 /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/assert.h: 
-/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
-/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h: 
-/home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Task.hpp: 
-/home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Mailbox.hpp: 
-/home/esteban/Escritorio/Incrustados-master/IE119-Lab2/Tasks/Message_Codes.hpp: 
-/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdio.h: 
-/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
-/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h: 
-/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/libcxx/stdlib.h: 
-/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdlib.h: 
