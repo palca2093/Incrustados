@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_MESSAGE_QUEUE 50
+#define MAX_MESSAGE_QUEUE 3
 
 const uint8_t BROADCAST_MESSAGE  = 0U;
 const uint8_t RESTRICTED_MESSAGE = 1;
