@@ -23,7 +23,7 @@ uint8_t LINE_COUNT::run()
         st_Message l_stMessage2Send = GetDefaultMessage();
 
         l_stMessage2Send.bMessageValid      = VALID_MESSAGE;
-        //l_stMessage2Send.u8DestinationID  = yarayara
+        l_stMessage2Send.u8DestinationID    = DestinationID;
         l_stMessage2Send.u16MessageCode     = LINE_NUMBER;
         l_stMessage2Send.u8MessageType      = RESTRICTED_MESSAGE;
         l_stMessage2Send.u8SourceID         = this -> m_u8TaskID;
