@@ -2,12 +2,9 @@
 #define SCREEN_UPDATE_HPP_
 #define __NOP __nop
 #include <ti/devices/msp432p4xx/inc/msp.h>
-#include "Task.hpp"
-
-extern "C"
-{
 #include "LcdDriver/Crystalfontz128x128_ST7735.h"
-}
+//#include <grlib.h>
+#include "Task.hpp"
 
 
 class SCREEN_UPDATE : public Task

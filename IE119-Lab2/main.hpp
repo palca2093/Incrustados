@@ -10,7 +10,11 @@
 #ifndef MAIN_HPP_
 #define MAIN_HPP_
 #define TIMER32_COUNT 0x00002EE0  // ~1ms with 12MHz clock
-#include <ti/devices/msp432p4xx/inc/msp.h>
+
+extern "C"
+{
+#include "LcdDriver/Crystalfontz128x128_ST7735.h"
+}
 
 // The main Setup function for the application
 

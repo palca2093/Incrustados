@@ -153,7 +153,7 @@ extern "C"
 
         l_i16MaxQueuePerTask = MAX_MESSAGE_QUEUE/(l_i16NumberOfTasks + 1);
 
-        //Allocate memory for mailbox pointers depending on how many task were attached (+1 for the scheduler mailbox)
+        //Allocate memory for mailbox pointers depending on how many task were attached
 
         l_pListOfTasksMessages = (st_Message **) malloc(l_i16NumberOfTasks + 1);
 
@@ -161,21 +161,20 @@ extern "C"
 
         for(short l_i16Counter = 0; l_i16Counter <= l_i16NumberOfTasks; l_i16Counter++)
         {
-            *(l_pListOfTasksMessages + l_i16Counter) = (st_Message *) malloc(l_i16MaxQueuePerTask);
+            *(l_pListOfTasksMessages + l_i16Counter) = (st_Message *) malloc(l_i16MaxQueuePerTask + 1);
         }
 
         // Initiate all messages as default
 
-        for(short l_i16TaskIDCounter = l_i16NumberOfTasks; l_i16TaskIDCounter >= 0; l_i16TaskIDCounter--)
+        for(uint16_t l_i16TaskIDCounter = 0; l_i16TaskIDCounter <= l_i16NumberOfTasks; l_i16TaskIDCounter++)
         {
-            for(short l_i16MessageCounter = 0; l_i16MessageCounter < l_i16MaxQueuePerTask; l_i16MessageCounter++)
+            for(uint16_t l_i16MessageCounter = 0; l_i16MessageCounter <= l_i16MaxQueuePerTask; l_i16MessageCounter++)
             {
                 *(*(l_pListOfTasksMessages + l_i16TaskIDCounter) + l_i16MessageCounter) = m_stDefaultMessage;
 
             }
         }
 
-        return;
 
     }
 
@@ -206,7 +205,6 @@ extern "C"
             *(*(l_pListOfTasksMessages + i_u8TaskID) + l_u8Slot2Save) = i_stMessage2Write;
         }
 
-        return;
     }
 
 

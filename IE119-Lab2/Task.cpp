@@ -20,10 +20,11 @@ void Task::sendMessage(st_Message i_stMessage)
     m_pMailbox -> sendMessage(i_stMessage);
 }
 
-bool Task::CheckMessageIntegrity(st_Message i_stMessage)
+bool Task::CheckMessageIntegrity(st_Message i_stMessage /*,yarayara , yadada    */)
 {
     if
     (   i_stMessage.bMessageValid == VALID_MESSAGE &&
+        //i_stMessage.u8SourceID = yadada &&
         i_stMessage.u8DestinationID == this -> m_u8TaskID
     )
     {

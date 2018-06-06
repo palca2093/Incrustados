@@ -2,10 +2,6 @@
 #include "Scheduler.hpp"
 #include "Task.hpp"
 #include "Tasks/LED.hpp"
-// Tasks
-#include "Tasks/LINE_COUNT.hpp"
-#include "Tasks/SCREEN_UPDATE.hpp"
-#include "Tasks/UPDATE_ADC.hpp"
 
 // ##########################
 // Global/Static declarations
@@ -26,22 +22,51 @@ Scheduler g_MainScheduler; // - Instantiate a Scheduler
 // #########################
 void main(void)
 {
+
+    /* Sentencias que se ocupan
+
+    //Cargar Task Info en posicion "i" en variable intermedia B
+
+    st_TaskInfo B = m_aSchedule[i];
+
+    //Acceder a los parametros NeededData y Handled Data de B
+
+    B.pTask -> GetNeededData();
+    B.pTask -> GetHandledData();
+
+    //Despues de comparar, guardar el destination ID
+
+    (B.pTask -> DestinationID) = 1;
+
+    Comando para malloc
+
+    uint8_t * l_pNombrePuntero = (uint8_t *) malloc(l_i16ValidTaskSlots);
+
+
+    Recordar que para "sacar" lo que hay en la posicion de memoria
+    a la que apunta el puntero, se usa el operador  para dereferenciar "*"
+
+    ejemplo:
+
+    A = *B; //Guardar en A lo que hay en la posicion de memoria marcada por B
+
+    */
+
     // - Instantiate new Tasks
-    UPDATE_ADC      ADC_UPDATE;
-    LINE_COUNT      LINE_COUNT;
-    SCREEN_UPDATE   UPDATE_SCREEN;
+    LED BlueLED1(BIT1);
+    LED GreenLED1(BIT1);
+    LED BlueLED2(BIT2);
+    LED GreenLED2(BIT2);
 
     // - Run the overall setup function for the system
     Setup();
 
     // - Attach the Tasks to the Scheduler;
-
-    g_MainScheduler.attach(&ADC_UPDATE,   TaskType_Periodic,  TaskActiveTrue, 0, 1);
-    g_MainScheduler.attach(&LINE_COUNT,   TaskType_Periodic,  TaskActiveTrue, 1, 5);
-    g_MainScheduler.attach(&UPDATE_SCREEN,TaskType_Periodic,  TaskActiveTrue, 2, 5);
-
-    //g_MainScheduler.attach(&BlueLED,TaskType_Periodic, TaskActiveTrue, 1, 500);
-    //g_MainScheduler.attach(&GreenLED, TaskType_Periodic,TaskActiveTrue, 0, 1000);
+    g_MainScheduler.attach(&BlueLED1, TaskType_Periodic,TaskActiveFalse,400);
+    g_MainScheduler.attach(&GreenLED1, TaskType_Periodic,TaskActiveTrue,600);
+    //g_MainScheduler.attach(&BlueLED1, TaskType_Periodic,TaskActiveFalse,300);
+    //g_MainScheduler.attach(&GreenLED2, TaskType_Periodic,TaskActiveTrue,700);
+    //g_MainScheduler.attach(&BlueLED,TaskType_Periodic, TaskActiveFalse,500);
 
     // - Run the Setup for the scheduler and all tasks
     g_MainScheduler.setup();
