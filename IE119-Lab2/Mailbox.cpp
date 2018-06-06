@@ -166,9 +166,9 @@ extern "C"
 
         // Initiate all messages as default
 
-        for(uint16_t l_i16TaskIDCounter = 0; l_i16TaskIDCounter <= l_i16NumberOfTasks; l_i16TaskIDCounter++)
+        for(short l_i16TaskIDCounter = l_i16NumberOfTasks; l_i16TaskIDCounter >= 0; l_i16TaskIDCounter--)
         {
-            for(uint16_t l_i16MessageCounter = 0; l_i16MessageCounter < l_i16MaxQueuePerTask; l_i16MessageCounter++)
+            for(short l_i16MessageCounter = 0; l_i16MessageCounter < l_i16MaxQueuePerTask; l_i16MessageCounter++)
             {
                 *(*(l_pListOfTasksMessages + l_i16TaskIDCounter) + l_i16MessageCounter) = m_stDefaultMessage;
 
