@@ -55,6 +55,8 @@ st_Message Mailbox::getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode)
     l_stControlMessage2Read =  MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT);
     //l_stControlMessage2Read = *( MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT) );
 
+    l_stMessage2Return = m_stDefaultMessage;
+
 
     if( l_stControlMessage2Read.u8NumberOfMessages > 0)
     {
@@ -80,17 +82,13 @@ st_Message Mailbox::getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode)
         WriteOnSpecificPosition(i_u8TaskID, MAILBOX_INFO_SLOT, l_stControlMessage2Read);
 
         //Free used memory
-        free(&l_stControlMessage2Read);
-        free(&l_stOverwriteMessage);
+        //free(&l_stControlMessage2Read);
+        //free(&l_stOverwriteMessage);
 
         return(l_stMessage2Return);
 
     }
 
-    else
-    {
-        return(m_stDefaultMessage);
-    }
 }
 
 

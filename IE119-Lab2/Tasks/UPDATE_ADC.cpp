@@ -31,7 +31,7 @@ uint8_t UPDATE_ADC::run()
 
     sendMessage(l_stMessage2Send);
 
-    free(&l_stMessage2Send); //Free the memory used for the message
+    //free(&l_stMessage2Send); //Free the memory used for the message
 
     return(NO_ERR);
 }

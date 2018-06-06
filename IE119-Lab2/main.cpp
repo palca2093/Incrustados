@@ -37,8 +37,8 @@ void main(void)
     // - Attach the Tasks to the Scheduler;
 
     g_MainScheduler.attach(&ADC_UPDATE,   TaskType_Always,  TaskActiveTrue, 0);
-    g_MainScheduler.attach(&LINE_COUNT,   TaskType_Periodic,  TaskActiveTrue, 1, 50);
-    g_MainScheduler.attach(&UPDATE_SCREEN,TaskType_Periodic,  TaskActiveTrue, 2, 700);
+    g_MainScheduler.attach(&LINE_COUNT,   TaskType_Always,  TaskActiveTrue, 1);
+    g_MainScheduler.attach(&UPDATE_SCREEN,TaskType_Always,  TaskActiveTrue, 2);
 
     //g_MainScheduler.attach(&BlueLED,TaskType_Periodic, TaskActiveTrue, 1, 500);
     //g_MainScheduler.attach(&GreenLED, TaskType_Periodic,TaskActiveTrue, 0, 1000);
@@ -99,4 +99,25 @@ extern "C"
 
         return;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
