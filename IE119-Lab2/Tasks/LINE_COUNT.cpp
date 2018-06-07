@@ -33,13 +33,13 @@ uint8_t LINE_COUNT::run()
         sendMessage(l_stMessage2Send);
 
         //Free the memory used for the received and sent messages
-        free(&l_stReceivedMessage);
-        free(&l_stMessage2Send);
+        //free(&l_stReceivedMessage);
+        //free(&l_stMessage2Send);
 
         return(NO_ERR);
     }
 
-    free(&l_stReceivedMessage);
+    //free(&l_stReceivedMessage);
 
     return(RET_ERR);
 
