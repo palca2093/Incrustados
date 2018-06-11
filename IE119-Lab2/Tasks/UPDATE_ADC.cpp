@@ -4,22 +4,23 @@ uint8_t UPDATE_ADC::run()
 {
 
     //Message that will be sent
-    st_Message l_stMessage2Send = GetDefaultMessage();
+    st_Message l_stMessage2Send;
 
     //ADC14 -> MEM[0] = X coordinate
     //ADC14 -> MEM[1] = Y coordinate
     //ADC14 -> MEM[2] = Z coordinate
 
-//    ADC14 -> IER0 = ADC14_IER0_IE0; //Enable ADC interrupt for ADC14IFG0 bit
+    ADC14 -> IER0 = ADC14_IER0_IE0; //Enable ADC interrupt for ADC14IFG0 bit
+
     ADC14 -> CTL0 |= ADC14_CTL0_SC; //Conversion Start?: Yes
 
 
-/*    while( *l_pADCInterruptCheck  == ADC14_IER0_IE0 ) //Only continue if the ADC interruption passed
+    while( *l_pADCInterruptCheck  == ADC14_IER0_IE0 ) //Only continue if the ADC interruption passed
     {
         __wfe(); // Wait for Event
     }
-*/
-    //Prepare message to be sent
+
+    //Prepare message with the ADC reading to be sent
 
     l_stMessage2Send.bMessageValid      = VALID_MESSAGE;
     l_stMessage2Send.u8DestinationID    = DestinationID;
@@ -28,10 +29,26 @@ uint8_t UPDATE_ADC::run()
     l_stMessage2Send.u8SourceID         = this -> m_u8TaskID;
     l_stMessage2Send.u16MessageData     = (ADC14 -> MEM[1]);
 
+    sendMessage(l_stMessage2Send);
+
+    //Prepare messages with the tasks activation / deactivation (using previous message as template)
+
+    //Activate next task
+
+    l_stMessage2Send.u8DestinationID    = GetSchedulerMailboxID();
+    l_stMessage2Send.u16MessageCode     = TASK_ACTIVENESS;
+    l_stMessage2Send.u8MessageType      = RESTRICTED_MESSAGE;
+    l_stMessage2Send.u8SourceID         = this -> m_u8TaskID;
+    l_stMessage2Send.u16MessageData     = DestinationID;
 
     sendMessage(l_stMessage2Send);
 
-    //free(&l_stMessage2Send); //Free the memory used for the message
+    //Deactivate current task
+
+   /* l_stMessage2Send.u16MessageData = this -> m_u8TaskID;
+
+    sendMessage(l_stMessage2Send);
+    */
 
     return(NO_ERR);
 }

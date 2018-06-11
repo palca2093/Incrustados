@@ -24,16 +24,17 @@ class Task
 		uint16_t            DependencyCode;
 		uint16_t            MessageHandledCode;
 
-		st_Message          getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode = ANY_MESSAGE);
+		st_Message          getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode = DEFAULT_CODE);
 		void                sendMessage(st_Message i_stMessage);
 
 		st_Message          GetDefaultMessage(void);
 		uint16_t            GetMaxMessageQueue(void);
+		uint8_t             GetSchedulerMailboxID(void);
 
 		uint32_t            GetNeededData(void);
 		uint32_t            GetHandledData(void);
 
-		bool CheckMessageIntegrity(st_Message i_stMessage);
+		bool                CheckMessageIntegrity(st_Message i_stMessage);
 
 		uint8_t             DestinationID;
 

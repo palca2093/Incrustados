@@ -15,21 +15,15 @@
 #include <stdlib.h>
 
 #define MAX_MESSAGE_QUEUE 50
-const int NUMBER_OF_TASKS = 3 + 1; // +1 Because of the slot for the Scheduler
-const int NUMBER_OF_MESSAGES_PER_TASK = MAX_MESSAGE_QUEUE/(NUMBER_OF_TASKS);
 
 const uint8_t BROADCAST_MESSAGE  = 0U;
 const uint8_t RESTRICTED_MESSAGE = 1;
 
 const uint8_t MAILBOX_INFO_SLOT = 0U;
-const uint8_t DESTINATION_ALL = 255;
 const uint8_t QUEUE_ERROR = 255;
 
 const bool VALID_MESSAGE    = true;
 const bool INVALID_MESSAGE  = false;
-const uint16_t ANY_MESSAGE = 65535;
-
-
 
 struct st_Message
 {
@@ -50,40 +44,31 @@ public:
 
     //Main interaction functions
     void sendMessage(st_Message i_stMessage);
-    st_Message getMessage(uint8_t i_u8MailboxID, uint16_t i_u16MessageCode = ANY_MESSAGE);
+    st_Message getMessage(uint8_t i_u8MailboxID, uint16_t i_u16MessageCode = DEFAULT_CODE);
 
     st_Message GetDefaultMessage(void);
     uint16_t   GetMaxMessageQueue(void);
-
-
+    uint8_t    GetSchedulerMailboxID(void);
 
 private:
     Mailbox();
     static Mailbox* MailObj;
 
     void            MessageAccessWrite(uint8_t i_u8TaskID , st_Message i_stMessage2Write);
-    void            WriteOnSpecificPosition(uint8_t i_u8TaskID ,
-                                            uint8_t l_u8Slot2Write, st_Message i_stMessage2Write);
-    st_Message    MessageAccessRead(uint8_t i_u8TaskID ,uint8_t i_u8MessagePosition);
 
     uint8_t         FindMessageSlot(uint8_t i_u8TaskID,
                                     bool i_bMessageValidity,
-                                    uint16_t i_u16MessageCode = ANY_MESSAGE
+                                    uint16_t i_u16MessageCode = DEFAULT_CODE
                                     );
 
-    st_Message m_CompleteMailbox[NUMBER_OF_TASKS][NUMBER_OF_MESSAGES_PER_TASK];
+    uint16_t MAX_MSG_QUEUE_PER_TASK;
 
-
-
+    st_Message m_CompleteMailbox[MAX_MESSAGE_QUEUE];
     st_Message m_stDefaultMessage;
-    uint16_t l_i16MaxQueuePerTask = NUMBER_OF_MESSAGES_PER_TASK;
-    uint16_t l_i16NumberOfTasks = NUMBER_OF_TASKS - 1; //Only considers tasks not the scheduler
-
-    //Pointer with the list of each task mailbox
-    st_Message ** l_pListOfTasksMessages;
 
 
-
+    //Base position to access the scheduler messages.
+    uint8_t SCHEDULER_MAILBOX_ID;
 };
 
 #endif /* MAILBOX_HPP_ */

@@ -64,27 +64,17 @@ uint8_t Scheduler::setup(void)
     uint8_t l_u8ReturnCode = NO_ERR;
 
     //Get number of attached tasks
-
     m_u8TaskCount = NumberOfTasks();
 
-    //Set position of Scheduler Mailbox in the mailbox queue
-
-    SCHEDULER_MAILBOX = m_u8TaskCount;
-
     //Setup Mailbox size depending on the number of tasks
-
     m_pMailbox -> setupMailbox(m_u8TaskCount);
 
-
-    //##############################################################
-    //##############################################################
+    //The mailbox base position to access the scheduler messages will
+    //always be the same as the number of attached tasks
+    SCHEDULER_MAILBOX_ID = m_u8TaskCount;
 
     //Rearrange Task in terms of priority
-    //SortScheduleByPriority();
-
-    //##############################################################
-    //##############################################################
-
+    SortScheduleByPriority();
 
     // - Run the setup function for all available tasks.
 
@@ -93,7 +83,7 @@ uint8_t Scheduler::setup(void)
         l_pNextTask = static_cast<Task *> (m_aSchedule[l_iNextTaskSlot].pTask);
         if(l_pNextTask != ((uintptr_t) 0))
         {
-            l_pNextTask->setup();
+            l_pNextTask -> setup();
         }
         l_iNextTaskSlot++;
     }
@@ -101,7 +91,6 @@ uint8_t Scheduler::setup(void)
 
     //Determine TaskID for messages to be sent
     PairTasks();
-
 
     return l_u8ReturnCode;
 }
@@ -120,12 +109,9 @@ uint8_t Scheduler::run(void)
 
    // CalculateNextSchedule();
 
-
     while(l_u8NextSlot < m_u8TaskCount)
     {
         l_pNextTask = static_cast<Task *> (m_aSchedule[l_u8NextSlot].pTask);
-
-        int A = m_aSchedule[l_u8NextSlot].pTask -> m_u8TaskID;
 
         if(l_pNextTask != ((uintptr_t) 0))
         {
@@ -167,6 +153,11 @@ uint8_t Scheduler::run(void)
             // - If we found an uninitialized slot, break from the execution loop
             break;
         }
+
+        //Check scheduler mailbox for any message that activates or deactivates a task
+
+        UpdateTaskActiveness();
+
 		l_u8NextSlot++;
     }
  //   CalculateNextSchedule(); // TODO
@@ -182,99 +173,63 @@ uint8_t Scheduler::run(void)
 //#######################################################################
 //#######################################################################
 
-uint8_t Scheduler::SortScheduleByPriority(void)
+void Scheduler::SortScheduleByPriority(void)
 {
-
-    //Allocate memory to order Tasks
-
-    short * l_pArrangedTaskSlots = (short *) malloc(m_u8TaskCount);
+    //Array where disordered tasks will be saved
+    st_TaskInfo l_aScheduleCopy[NUMBER_OF_SLOTS];
+    uint8_t     l_u8ArrangedTaskSlots[NUMBER_OF_SLOTS];
 
     //Save temporarily the content of the Schedule
-
-    st_TaskInfo * l_pCopyOfSchedule = (st_TaskInfo *) malloc(m_u8TaskCount);
-
     for(short l_i16Counter = 0; l_i16Counter < m_u8TaskCount; l_i16Counter++)
     {
-        *(l_pCopyOfSchedule + l_i16Counter) = m_aSchedule[l_i16Counter];
+        l_aScheduleCopy[l_i16Counter] = m_aSchedule[l_i16Counter];
+        l_u8ArrangedTaskSlots[l_i16Counter] = l_i16Counter;
     }
 
-
-
-    //########################################################
-    // Rearrange elements between active and non active tasks
-    //########################################################
-
-    //Counter variables for arrangement
     
-    short l_i16NumberOfActiveTaskSlots = 0U; 
-    short l_i16NumberOfInactiveTaskSlots = m_u8TaskCount - 1;
-
-    for(short l_i16Counter = 0; l_i16Counter < m_u8TaskCount; l_i16Counter++)
-    {
-        if(m_aSchedule[l_i16Counter].bTaskIsActive == TaskActiveTrue)
-        {
-            *(l_pArrangedTaskSlots + l_i16NumberOfActiveTaskSlots) = l_i16Counter;
-
-            //l_i16ArrangedTaskSlots[l_i16ActiveTaskSlots] = l_i16Counter;
-
-            l_i16NumberOfActiveTaskSlots++;
-        }
-
-        else
-        {
-            *(l_pArrangedTaskSlots + l_i16NumberOfInactiveTaskSlots) = l_i16Counter;
-
-            //l_i16ArrangedTaskSlots[l_i16InActiveTaskSlots] = l_i16Counter;
-
-            l_i16NumberOfInactiveTaskSlots--;
-        }
-
-    }
-
-
     //#######################################################################
     // Insertion Sort algorithm to order tasks in terms of priority
     //#######################################################################
-
 
     short  l_i16PriorityValue;
     short  l_i16IndexValue;
     short  l_i16TempPosition;
 
 
-    for(short  l_i16Counter1 = 1; l_i16Counter1 < l_i16NumberOfActiveTaskSlots; l_i16Counter1++)
+
+    for(short  l_i16Counter1 = 1; l_i16Counter1 < m_u8TaskCount; l_i16Counter1++)
     {
 
-        l_i16PriorityValue    = m_aSchedule[*(l_pArrangedTaskSlots + l_i16Counter1)].TaskPriority;
-        l_i16IndexValue = *(l_pArrangedTaskSlots + l_i16Counter1);
+        l_i16PriorityValue    = m_aSchedule[l_i16Counter1].TaskPriority;
+
+        l_i16IndexValue = l_i16Counter1;
 
         l_i16TempPosition = l_i16Counter1;
 
         for(short l_i16Counter2  = l_i16Counter1 - 1 ; l_i16Counter2 >= 0; l_i16Counter2--)
         {
 
-            if( l_i16PriorityValue <= m_aSchedule[*(l_pArrangedTaskSlots + l_i16Counter2)].TaskPriority)
+            if( l_i16PriorityValue <= m_aSchedule[l_i16Counter2].TaskPriority)
             {
                 l_i16TempPosition = l_i16Counter2;
-                //break;
             }
         }
 
         for(short  l_i16Counter3 = l_i16Counter1; l_i16Counter3 >= l_i16TempPosition; l_i16Counter3--)
         {
-
-            *(l_pArrangedTaskSlots + l_i16Counter3) = *(l_pArrangedTaskSlots + l_i16Counter3 - 1);
+            l_u8ArrangedTaskSlots[l_i16Counter3] = l_u8ArrangedTaskSlots[l_i16Counter3 - 1];
         }
 
-        *(l_pArrangedTaskSlots + l_i16TempPosition) = l_i16IndexValue;
+        l_u8ArrangedTaskSlots[l_i16TempPosition] = l_i16IndexValue;
 
     }
 
-    //Fill array "m_aSchedule" with the ordered Tasks
+
+    //Fill the Schedule array with the ordered Tasks
 
     for(short l_i16Counter = 0; l_i16Counter < m_u8TaskCount; l_i16Counter++)
     {
-        m_aSchedule[l_i16Counter] = *(l_pCopyOfSchedule + *(l_pArrangedTaskSlots + l_i16Counter));
+        m_aSchedule[l_i16Counter] = l_aScheduleCopy[l_u8ArrangedTaskSlots[l_i16Counter]];
 
         //Asign TaskID accordingly with new position
 
@@ -283,10 +238,6 @@ uint8_t Scheduler::SortScheduleByPriority(void)
     }
 
 
-    free(l_pCopyOfSchedule);
-    free(l_pArrangedTaskSlots);
-
-    return(NO_ERR);
 }
 
 
@@ -333,14 +284,13 @@ void Scheduler::PairTasks(void)
 
     for(short l_i16TaskIDCounter1 = 0; l_i16TaskIDCounter1 < m_u8TaskCount; l_i16TaskIDCounter1++)
     {
-        //Temporal structure to extract data from Task in the schedule queue
 
         l_stTaskThatHandledsDataNeeds = m_aSchedule[l_i16TaskIDCounter1];
 
         for(short l_i16TaskIDCounter2 = 0; l_i16TaskIDCounter2 < m_u8TaskCount; l_i16TaskIDCounter2++)
            {
 
-            //Check next task if current task has no data dependencies
+            //If current task can't handle any data dependencies, check next task
             if( (l_stTaskThatHandledsDataNeeds.pTask -> GetHandledData()) == NULL_DATA )
             {
                 break;
@@ -359,7 +309,49 @@ void Scheduler::PairTasks(void)
 }
 
 
+void Scheduler::UpdateTaskActiveness(void)
+{
+    uint8_t l_u8NumberofMessages;
+    uint8_t l_u8Task2Toggle;
+    st_Message  l_stRetrievedMessage;
 
+    //Get number of messages in scheduler mailbox
+    l_stRetrievedMessage = m_pMailbox -> getMessage(SCHEDULER_MAILBOX_ID, MAILBOX_DATA);
+
+    l_u8NumberofMessages = l_stRetrievedMessage.u8NumberOfMessages;
+
+    //Check complete Scheduler mailbox to activate / deactivate the tasks in queue
+
+    for(uint8_t l_i16MessageCounter = 0; l_i16MessageCounter < l_u8NumberofMessages; l_i16MessageCounter++)
+    {
+        //Retrieve messages with data codes marked as TASK_ACTIVENESS
+
+        l_stRetrievedMessage = m_pMailbox -> getMessage(SCHEDULER_MAILBOX_ID, TASK_ACTIVENESS);
+
+        l_u8Task2Toggle = l_stRetrievedMessage.u16MessageData;
+
+        //Review Scheduler slots to activate/deactivate the marked (l_u8Task2Toggle) task
+
+        for(uint8_t l_i16TaskCounter = 0; l_i16TaskCounter < m_u8TaskCount; l_i16TaskCounter++)
+        {
+
+            if (m_aSchedule[l_i16TaskCounter].pTask -> m_u8TaskID == l_u8Task2Toggle)
+            {
+                //If the task ID is correct, toggle the task activeness
+                m_aSchedule[l_i16TaskCounter].bTaskIsActive = !m_aSchedule[l_i16TaskCounter].bTaskIsActive;
+
+                break;
+            }
+
+        }
+
+
+
+    }
+
+
+
+}
 
 
 

@@ -7,6 +7,15 @@
  *              palca2093
  */
 
+        //############################################################################################
+        // The mailbox is composed by a one dimensional array of length MAX_MESSAGE_QUEUE. Each task
+        // has an inbox within this array, with "MAX_MSG_QUEUE_PER_TASK" message slots. To access a Task
+        // mailbox the TaskID will be used as an index access variable. The first message of each task
+        // handles the number of currents messages in an specific task inbox. The last inbox is reser-
+        // ved for the Scheduler.
+        //############################################################################################
+
+
 #include <Mailbox.hpp>
 
 Mailbox* Mailbox::MailObj = nullptr;
@@ -19,13 +28,14 @@ Mailbox::Mailbox()
     m_stDefaultMessage.u16MessageCode       = 65535;
     m_stDefaultMessage.u8DestinationID      = 255;
     m_stDefaultMessage.u8SourceID           = 255;
-    m_stDefaultMessage.u8MessageType        = 255;
+    m_stDefaultMessage.u8MessageType        = RESTRICTED_MESSAGE;
     m_stDefaultMessage.u8NumberOfMessages   = 0;
 }
 
 
 extern "C"
 {
+
 
 //#######################################################################
 //#######################################################################
@@ -42,324 +52,145 @@ extern "C"
 
 //#######################################################################
 //#######################################################################
-st_Message Mailbox::getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode)
-{
-    //Temporal used variables
 
-    st_Message l_stControlMessage2Read; //To check number of valid messages
-    st_Message l_stOverwriteMessage;    //Structure needed to mark the read message as invalid
-    st_Message l_stMessage2Return;      //Message to return
-
-    //Load Control Message
-
-    l_stControlMessage2Read =  MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT);
-    //l_stControlMessage2Read = *( MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT) );
-
-    l_stMessage2Return = m_stDefaultMessage;
-
-
-    if( l_stControlMessage2Read.u8NumberOfMessages > 0)
+    void Mailbox::setupMailbox(uint8_t i_u8NumberOfTasks)
     {
-        //Find Valid Message to read
-        uint8_t l_u8Slot2Read = FindMessageSlot(i_u8TaskID, VALID_MESSAGE, i_u16MessageCode);
 
-        l_stMessage2Return = MessageAccessRead(i_u8TaskID, l_u8Slot2Read);
+        MAX_MSG_QUEUE_PER_TASK    = MAX_MESSAGE_QUEUE/(i_u8NumberOfTasks + 1); //+1 Because of the scheduler
 
-        l_stOverwriteMessage = l_stMessage2Return;
+        //Last mailbox slot will always have scheduler messages
+        SCHEDULER_MAILBOX_ID    = i_u8NumberOfTasks;
 
-        //Mark message as invalid so it can be taken out of queue
+        // Initiate all messages as default
+            for(short l_i16MessageCounter = 0; l_i16MessageCounter < MAX_MESSAGE_QUEUE; l_i16MessageCounter++)
+            {
+                m_CompleteMailbox[l_i16MessageCounter] = m_stDefaultMessage;
+            }
 
-        l_stOverwriteMessage.bMessageValid = INVALID_MESSAGE;
-
-        //Write the changes on queued message
-        WriteOnSpecificPosition(i_u8TaskID, l_u8Slot2Read, l_stOverwriteMessage);
-
-        //Reduce number of valid messages since since the message was read
-        l_stControlMessage2Read.u8NumberOfMessages--;
-
-        //Write the changes on the control message
-
-        WriteOnSpecificPosition(i_u8TaskID, MAILBOX_INFO_SLOT, l_stControlMessage2Read);
-
-        //Free used memory
-        //free(&l_stControlMessage2Read);
-        //free(&l_stOverwriteMessage);
-
-        return(l_stMessage2Return);
+        return;
 
     }
 
-}
 
+//#######################################################################
+//#######################################################################
 
-
-/*    st_Message Mailbox::getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode)
+    st_Message Mailbox::getMessage(uint8_t i_u8TaskID, uint16_t i_u16MessageCode)
     {
-        st_Message l_stMessage2Return;
 
-        if( (MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT) -> u8NumberOfMessages) > 0)
+        //Base position of the task mailbox that will be checked
+        uint8_t l_u8BasePosition = (i_u8TaskID * MAX_MSG_QUEUE_PER_TASK);
+
+        //Check if message requested is the inbox information message
+
+        if(i_u16MessageCode == MAILBOX_DATA)
+        {
+            return m_CompleteMailbox[l_u8BasePosition + MAILBOX_INFO_SLOT];
+        }
+
+
+        //Structure that will be returned
+        st_Message l_stMessage2Return = m_stDefaultMessage;
+
+        if( m_CompleteMailbox[l_u8BasePosition + MAILBOX_INFO_SLOT].u8NumberOfMessages > 0)
         {
             //Find Valid Message to read
             uint8_t l_u8Slot2Read = FindMessageSlot(i_u8TaskID, VALID_MESSAGE, i_u16MessageCode);
 
-            l_stMessage2Return = *( MessageAccessRead(i_u8TaskID, l_u8Slot2Read) );
+            //Load that message on the structure to be returned
+            l_stMessage2Return = m_CompleteMailbox[ l_u8BasePosition + l_u8Slot2Read];
 
             //Mark message as invalid so it can be taken out of queue
+            m_CompleteMailbox[ l_u8BasePosition + l_u8Slot2Read].bMessageValid = INVALID_MESSAGE;
 
-            MessageAccessRead(i_u8TaskID, l_u8Slot2Read) -> bMessageValid = INVALID_MESSAGE;
+            //Reduce number of valid messages since since the message was read
+            m_CompleteMailbox[l_u8BasePosition + MAILBOX_INFO_SLOT].u8NumberOfMessages--;
 
-            MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT) -> u8NumberOfMessages--;
+        } //end_if
 
-            //Write number of valid messages
-
-            l_stMessage2Return.u8NumberOfMessages = MessageAccessRead(i_u8TaskID, MAILBOX_INFO_SLOT) ->u8NumberOfMessages;
-
-            return(l_stMessage2Return);
-        }
-
-        return(m_stDefaultMessage);
-    } */
-
+        return(l_stMessage2Return);
+    }
 
 //#######################################################################
 //#######################################################################
 
     void Mailbox::sendMessage(st_Message i_stMessage)
     {
-        //Pointer with the information of the mailbox where will be written
-        st_Message l_stMailboInfoMessageContent;
+        //Base position of the receiving task mailbox
+        uint8_t l_u8BasePosition = (i_stMessage.u8DestinationID * MAX_MSG_QUEUE_PER_TASK);
 
-        i_stMessage.bMessageValid = true; //Message sent will be valid
-
-        switch(i_stMessage.u8MessageType)
-            {
-            //Broadcast messages write a message on all tasks mailboxes if possible
-            case BROADCAST_MESSAGE:
-                {
-                    i_stMessage.u8DestinationID = DESTINATION_ALL;
-
-                    for(uint16_t l_i16TaskIDCounter = 0; l_i16TaskIDCounter < l_i16NumberOfTasks; l_i16TaskIDCounter++)
-                    {
-                        //Load first message pointer, which always has the number of valid messages on mailbox
-                        l_stMailboInfoMessageContent = MessageAccessRead(l_i16TaskIDCounter, MAILBOX_INFO_SLOT);
-
-                        // If max number of messages has not been reached, write the input message
-                        if( (l_stMailboInfoMessageContent.u8NumberOfMessages) < l_i16MaxQueuePerTask)
-                        {
-                            //Raise counter of number of messages in mailbox
-                            m_CompleteMailbox[i_stMessage.u8DestinationID ][MAILBOX_INFO_SLOT].u8NumberOfMessages++;
-
-                            //(l_stMailboInfoMessageContent.u8NumberOfMessages)++;
-
-                            //Write input message in available position
-                            MessageAccessWrite(l_i16TaskIDCounter,
-                                               i_stMessage);
-
-                        } //end_if
-
-                    } //end_for
-
-                break;
-
-                }//end_case
-
-            //Restricted messages write a message to an specific task if possible
-            case RESTRICTED_MESSAGE:
-                {
-                    //Load first message pointer, which always has the number of valid messages on mailbox
-                    l_stMailboInfoMessageContent = MessageAccessRead( i_stMessage.u8DestinationID , MAILBOX_INFO_SLOT );
-
-                    //l_stMailboInfoMessageContent = *l_stMailboInfoMessage;
-
-                    // If max number of messages has not been reached, write the input message
-                    if( l_stMailboInfoMessageContent.u8NumberOfMessages < l_i16MaxQueuePerTask)
-                    //if( (l_stMailboInfoMessage -> u8NumberOfMessages) < l_i16MaxQueuePerTask)
-                    {
-                        //Write input message in available position
-                        MessageAccessWrite(i_stMessage.u8DestinationID,
-                                           i_stMessage);
-
-                        //Raise counter of number of messages in mailbox
-                        m_CompleteMailbox[i_stMessage.u8DestinationID ][MAILBOX_INFO_SLOT].u8NumberOfMessages++;
-
-                        //(l_stMailboInfoMessageContent.u8NumberOfMessages)++;
-
-
-                    }
-                    break;
-                }//end_case
-
-            } //end_switch
-    }
-
-//#######################################################################
-//#######################################################################
-
-    void Mailbox::setupMailbox(uint8_t i_u8NumberOfTasks)
-    {
-
-        //############################################################################################
-        // The scheduler and each attached task will have its own small mailbox, this function creates
-        // such mailboxes and a list to access them in terms of the Task ID's. The first entrance
-        // of every mailbox retains control data. The last mailbox belongs to the scheduler.
-        //############################################################################################
+        //If received, message sent will always be marked as valid
+        i_stMessage.bMessageValid = true;
         
-
-
-
-
-        for(short l_i16TaskIDCounter = i_u8NumberOfTasks; l_i16TaskIDCounter >= 0; l_i16TaskIDCounter--)
+        //Check if mailbox is not full
+        if( m_CompleteMailbox[l_u8BasePosition + MAILBOX_INFO_SLOT].u8NumberOfMessages < MAX_MSG_QUEUE_PER_TASK)
         {
-            for(short l_i16MessageCounter = 0; l_i16MessageCounter < NUMBER_OF_MESSAGES_PER_TASK; l_i16MessageCounter++)
-            {
+            //Look for an empty position
+            uint8_t l_u8Slot2Save = FindMessageSlot(i_stMessage.u8DestinationID, INVALID_MESSAGE);
 
-                m_CompleteMailbox[l_i16TaskIDCounter][l_i16MessageCounter] = m_stDefaultMessage;
+            if(l_u8Slot2Save != QUEUE_ERROR)
+            {
+                //Write input message in available position
+                m_CompleteMailbox[ l_u8BasePosition + l_u8Slot2Save ] = i_stMessage;
+
+                //Raise counter of number of messages in mailbox
+                m_CompleteMailbox[l_u8BasePosition + MAILBOX_INFO_SLOT].u8NumberOfMessages++;
 
             }
-        }
 
-        return;
-
-
-
-        /*
-
-        l_i16NumberOfTasks = i_u8NumberOfTasks;
-
-        //Calculate number of maximum messages per mailbox. Truncation is tolerated
-
-        l_i16MaxQueuePerTask = MAX_MESSAGE_QUEUE/(l_i16NumberOfTasks + 1);
-
-        //Allocate memory for mailbox pointers depending on how many task were attached (+1 for the scheduler mailbox)
-
-        l_pListOfTasksMessages = (st_Message **) malloc(l_i16NumberOfTasks + 1);
-
-        //Allocate memory for incoming messages depending on the calculated maximum message queue
-
-        for(short l_i16Counter = 0; l_i16Counter <= l_i16NumberOfTasks; l_i16Counter++)
-        {
-            *(l_pListOfTasksMessages + l_i16Counter) = (st_Message *) malloc(l_i16MaxQueuePerTask);
-        }
-
-
-        // Initiate all messages as default
-
-        for(short l_i16TaskIDCounter = l_i16NumberOfTasks; l_i16TaskIDCounter >= 0; l_i16TaskIDCounter--)
-        {
-            for(short l_i16MessageCounter = 0; l_i16MessageCounter < l_i16MaxQueuePerTask; l_i16MessageCounter++)
-            {
-                *(*(l_pListOfTasksMessages + l_i16TaskIDCounter) + l_i16MessageCounter) = m_stDefaultMessage;
-
-            }
-        }
-
-        return;
-
-        */
+        } //end_if
 
     }
 
-
-//#######################################################################
-//#######################################################################
-
-    //#################################################################
-    // Internal class functions to read or write to an specific Mailbox.
-    //#################################################################
-
-    st_Message Mailbox::MessageAccessRead(uint8_t i_u8TaskID ,uint8_t i_u8Slot2Read)
-    {
-        return m_CompleteMailbox[i_u8TaskID][i_u8Slot2Read];
-    }
-
-
-
-    void Mailbox::WriteOnSpecificPosition(uint8_t i_u8TaskID , uint8_t i_u8Slot2Write, st_Message i_stMessage2Write)
-    {
-
-        m_CompleteMailbox[i_u8TaskID][i_u8Slot2Write] = i_stMessage2Write;
-
-        // *(*(l_pListOfTasksMessages + i_u8TaskID) + l_u8Slot2Write) = i_stMessage2Write;
-    }
-
-
-
-    void Mailbox::MessageAccessWrite(uint8_t i_u8TaskID , st_Message i_stMessage2Write)
-    {
-        //Find a free message slot to save the message
-
-        uint8_t l_u8Slot2Save = FindMessageSlot(i_u8TaskID, INVALID_MESSAGE);
-
-        if(l_u8Slot2Save != QUEUE_ERROR)
-        {
-            //Write input message in available position
-            m_CompleteMailbox[i_u8TaskID][l_u8Slot2Save] = i_stMessage2Write;
-
-            //*(*(l_pListOfTasksMessages + i_u8TaskID) + l_u8Slot2Save) = i_stMessage2Write;
-        }
-
-        return;
-    }
-
-
-//#######################################################################
-//#######################################################################
-
-    //#####################################################################
-    // Find available or unavailable message position to overwrite or read
-    // The messages has to have the inputed i_bMessageValidity and
-    // i_u16MessageCode to be returned.
-    //#####################################################################
+    //###########################################################################
+    // Finds the position of an available or unavailable message to overwrite it
+    //  or read it. An specific MessageCode can be requested
+    //###########################################################################
 
     uint8_t Mailbox::FindMessageSlot(uint8_t i_u8TaskID, bool i_bMessageValidity, uint16_t i_u16MessageCode)
     {
-        switch(i_u16MessageCode)
-        {
-        case ANY_MESSAGE:
-        {
-            //This loops goes trough all the messages looking for one that fulfills the criteria
+        //Base position of the task mailbox that will be checked
+        uint8_t l_u8BasePosition = (i_u8TaskID * MAX_MSG_QUEUE_PER_TASK);
 
-            for(uint16_t l_i16ValidMessageCounter = 1;
-                    l_i16ValidMessageCounter <= l_i16MaxQueuePerTask; l_i16ValidMessageCounter++)
-            {
-                if( (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter).bMessageValid) == i_bMessageValidity )
+        //Search boundary for the task mailbox
+        uint8_t l_u8LastPosition = l_u8BasePosition + MAX_MSG_QUEUE_PER_TASK;;
+
+        //Default value to return
+        uint8_t l_u8Slot2Return = QUEUE_ERROR;
+
+
+        //Extend the search boundary in the task mailbox corresponds to the Scheduler
+        if( i_u8TaskID == SCHEDULER_MAILBOX_ID )
+        {
+            l_u8LastPosition = MAX_MESSAGE_QUEUE;
+        }
+
+        //This loops goes trough all the messages looking for one that fulfills the required criteria
+
+        for(uint16_t l_i16ValidMessageCounter = l_u8BasePosition + 1;
+                l_i16ValidMessageCounter <= l_u8LastPosition; l_i16ValidMessageCounter++)
+        {
+            if( (m_CompleteMailbox[l_u8BasePosition + l_i16ValidMessageCounter].bMessageValid) == i_bMessageValidity
+                                    &&
+                               (    (m_CompleteMailbox[l_u8BasePosition + l_i16ValidMessageCounter].u16MessageCode) == i_u16MessageCode
+                                            ||
+                                            i_u16MessageCode == DEFAULT_CODE) )
                 {
-                    return l_i16ValidMessageCounter;
-                }
+                    l_u8Slot2Return = l_i16ValidMessageCounter;
+                    break;
+                }//end_if
 
-            }
-        }
 
-        default:
-        {
-            //This loops goes trough all the messages looking for one that fulfills the criteria
-            for(uint16_t l_i16ValidMessageCounter = 1;
-                    l_i16ValidMessageCounter <= l_i16MaxQueuePerTask; l_i16ValidMessageCounter++)
-            {
-                if( (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter).bMessageValid) == i_bMessageValidity
-                        && (MessageAccessRead(i_u8TaskID, l_i16ValidMessageCounter).u16MessageCode == i_u16MessageCode))
-                {
-                    return l_i16ValidMessageCounter;
-                }
+        } //end_for
 
-            }
-        }
+        return l_u8Slot2Return;
 
-        }
-
-            return QUEUE_ERROR;
     }
 
-
-
-}
-
-
-//#######################################################################
-//#######################################################################
+}//end_extern_C
 
     //#####################################################################
-    // Functions that manipulate private class atributes
+    // Functions that retrieve private class attributes
     //#####################################################################
 
 st_Message Mailbox::GetDefaultMessage(void)
@@ -369,7 +200,14 @@ st_Message Mailbox::GetDefaultMessage(void)
 
 uint16_t Mailbox::GetMaxMessageQueue(void)
 {
-    return l_i16MaxQueuePerTask;
+    return MAX_MSG_QUEUE_PER_TASK;
 }
+
+uint8_t  Mailbox::GetSchedulerMailboxID(void)
+{
+    return SCHEDULER_MAILBOX_ID;
+}
+
+
 
 

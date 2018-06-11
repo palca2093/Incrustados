@@ -76,14 +76,15 @@ private:
 
     st_TaskInfo m_aNextSchedule[NUMBER_OF_SLOTS]; // - Next schedule to be executed (not implemented)
 
-    uint8_t SCHEDULER_MAILBOX; //Position of the mailbox slot for the scheduler
+    uint8_t SCHEDULER_MAILBOX_ID;
 
 
-
-    uint8_t SortScheduleByPriority(void); // - Calculate next schedule tasks (not implemented)
+    void UpdateTaskActiveness(void);
+    void SortScheduleByPriority(void);
     uint8_t NumberOfTasks(void);
 
-    void PairTasks(void); //Set the DestinationID based on the hander data and the needed data
+    //Set the DestinationID for the tasks based on the handled data and the needed data
+    void PairTasks(void);
 
 };
 

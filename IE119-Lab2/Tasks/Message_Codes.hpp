@@ -7,16 +7,29 @@
 #ifndef TASKS_MESSAGE_CODES_HPP_
 #define TASKS_MESSAGE_CODES_HPP_
 
-#define NULL_DATA       0
+    //########################################################
+    //This is the codification for the messages manipulated by
+    //the scheduler and the mailbox.
+    //########################################################
 
-#define ADC_X_READ      1
-#define ADC_Y_READ      2
-#define ADC_Z_READ      3
+#define NULL_DATA           0
+#define MAILBOX_DATA        1
+#define SCHEDULE_MESSAGE    2
 
-#define LINE_NUMBER     4
+#define TASK_ACTIVENESS     3
 
-#define NEEDED_DATA     5
-#define HANDLED_DATA    6
+#define ADC_X_READ          4
+#define ADC_Y_READ          5
+#define ADC_Z_READ          6
+
+#define LINE_NUMBER         7
+
+#define NEEDED_DATA         8
+#define HANDLED_DATA        9
+
+
+#define DEFAULT_CODE        65535
+
 
 
 #endif /* TASKS_MESSAGE_CODES_HPP_ */

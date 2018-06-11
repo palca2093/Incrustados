@@ -60,13 +60,23 @@ uint8_t SCREEN_UPDATE::run()
             //Statement needed for future comparison
             i_i16PreviousLines = i_i16CurrentLines;
 
+            //Prepare message with the tasks deactivation
 
+            st_Message l_stMessage2Send;
 
-            free(&l_stReceivedMessage);
+            l_stMessage2Send.bMessageValid      = VALID_MESSAGE;
+            l_stMessage2Send.u8DestinationID    = GetSchedulerMailboxID();
+            l_stMessage2Send.u16MessageCode     = TASK_ACTIVENESS;
+            l_stMessage2Send.u8MessageType      = RESTRICTED_MESSAGE;
+            l_stMessage2Send.u8SourceID         = this -> m_u8TaskID;
+            l_stMessage2Send.u16MessageData     = this -> m_u8TaskID;
+
+            sendMessage(l_stMessage2Send);
+
             return(NO_ERR);
     }
 
-    free(&l_stReceivedMessage);
+
     return(RET_ERR);
 }
 

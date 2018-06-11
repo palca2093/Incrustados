@@ -18,9 +18,9 @@ uint8_t LINE_COUNT::run()
 
         uint16_t l_i16LineNumber = l_fLineSlope*i_u16CoordinateY + l_fLineBias;
 
-        //Prepare message to be sent
+        //Prepare message with the number of lines to be sent
 
-        st_Message l_stMessage2Send = GetDefaultMessage();
+        st_Message l_stMessage2Send;
 
         l_stMessage2Send.bMessageValid      = VALID_MESSAGE;
         l_stMessage2Send.u8DestinationID    = DestinationID;
@@ -29,17 +29,30 @@ uint8_t LINE_COUNT::run()
         l_stMessage2Send.u8SourceID         = this -> m_u8TaskID;
         l_stMessage2Send.u16MessageData     = l_i16LineNumber;
 
-        //Send message
         sendMessage(l_stMessage2Send);
 
-        //Free the memory used for the received and sent messages
-        //free(&l_stReceivedMessage);
-        //free(&l_stMessage2Send);
+
+        //Prepare messages with the tasks activation / deactivation (using previous message as template)
+
+        //Activate next task
+
+        l_stMessage2Send.u8DestinationID    = GetSchedulerMailboxID();
+        l_stMessage2Send.u16MessageCode     = TASK_ACTIVENESS;
+        l_stMessage2Send.u8MessageType      = RESTRICTED_MESSAGE;
+        l_stMessage2Send.u8SourceID         = this -> m_u8TaskID;
+        l_stMessage2Send.u16MessageData     = DestinationID;
+
+        sendMessage(l_stMessage2Send);
+
+        //Deactivate current task
+
+        l_stMessage2Send.u16MessageData     = this -> m_u8TaskID;
+
+        sendMessage(l_stMessage2Send);
+
 
         return(NO_ERR);
     }
-
-    //free(&l_stReceivedMessage);
 
     return(RET_ERR);
 
