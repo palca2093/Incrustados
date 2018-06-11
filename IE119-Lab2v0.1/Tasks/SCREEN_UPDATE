@@ -18,42 +18,44 @@ uint8_t SCREEN_UPDATE::run()
         i_i16CurrentLines = l_stReceivedMessage.u16MessageData;
 
         if (i_i16CurrentLines > i_i16PreviousLines)
-        {
+            { //Draw more blue lines and a white line in the center
 
-            for(short index = i_i16PreviousLines - 2; index <= i_i16CurrentLines + 2; index++)
-            {
-
-                if(index < i_i16CurrentLines - 2)
+                for(short index = i_i16PreviousLines - 2; index <= i_i16CurrentLines + 2; index++)
                 {
-                    Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLUE);
-                }
 
-                else if(index > i_i16CurrentLines - 2 && index <= i_i16CurrentLines + 2)
-                {
-                    Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_WHITE);
-                }
+                    if(index < i_i16CurrentLines - 2)
+                    {
+                        Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLUE);
+                    }
 
+                    else if(index > i_i16CurrentLines - 2 && index <= i_i16CurrentLines + 2)
+                    {
+                        Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_WHITE);
+                    }
+
+                }
             }
-        }
 
-        else if(i_i16CurrentLines < i_i16PreviousLines)
-        {
-            for(short index = i_i16CurrentLines - 2; index <= i_i16PreviousLines + 2; index++)
-                {
+            else if(i_i16CurrentLines < i_i16PreviousLines)
+            {
+                //Draw more dark lines and a white line in the center
 
-                    if(index > i_i16CurrentLines + 2)
+                for(short index = i_i16CurrentLines - 2; index <= i_i16PreviousLines + 2; index++)
                     {
-                        Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLACK);
-                    }
 
-                    else if(index > i_i16CurrentLines + 2 && index >= i_i16CurrentLines - 2)
-                    {
-                        Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_WHITE);
-                        Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_WHITE);
-                    }
+                        if(index > i_i16CurrentLines + 2 && index >= i_i16CurrentLines - 2)
+                       {
+                           Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_WHITE);
+                           Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_WHITE);
+                       }
 
-                }
-        }
+                        else if(index > i_i16CurrentLines + 2)
+                        {
+                            Crystalfontz128x128_LineDrawH(&l_stDisplay, 0, 127, index, GRAPHICS_COLOR_BLACK);
+                        }
+
+                    }
+            }
 
             //Statement needed for future comparison
             i_i16PreviousLines = i_i16CurrentLines;

@@ -38,7 +38,7 @@ void main(void)
 
     g_MainScheduler.attach(&LINE_COUNT,   TaskType_OneShot,   TaskActiveFalse,  1);
     g_MainScheduler.attach(&UPDATE_SCREEN,TaskType_OneShot,   TaskActiveFalse,  2);
-    g_MainScheduler.attach(&ADC_UPDATE,   TaskType_Periodic,  TaskActiveTrue,   0,800);
+    g_MainScheduler.attach(&ADC_UPDATE,   TaskType_Periodic,  TaskActiveTrue,   0, 10);
 
 
     // - Run the Setup for the scheduler and all tasks

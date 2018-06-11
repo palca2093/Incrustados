@@ -76,7 +76,6 @@ uint8_t Scheduler::setup(void)
     //Rearrange Task in terms of priority
     SortScheduleByPriority();
 
-
     // - Run the setup function for all available tasks.
 
     while(l_iNextTaskSlot < m_u8TaskCount)
@@ -84,7 +83,7 @@ uint8_t Scheduler::setup(void)
         l_pNextTask = static_cast<Task *> (m_aSchedule[l_iNextTaskSlot].pTask);
         if(l_pNextTask != ((uintptr_t) 0))
         {
-            l_pNextTask->setup();
+            l_pNextTask -> setup();
         }
         l_iNextTaskSlot++;
     }
@@ -92,7 +91,6 @@ uint8_t Scheduler::setup(void)
 
     //Determine TaskID for messages to be sent
     PairTasks();
-
 
     return l_u8ReturnCode;
 }
@@ -110,7 +108,6 @@ uint8_t Scheduler::run(void)
     uint8_t l_u8ReturnCode = NO_ERR;
 
    // CalculateNextSchedule();
-
 
     while(l_u8NextSlot < m_u8TaskCount)
     {
@@ -156,6 +153,11 @@ uint8_t Scheduler::run(void)
             // - If we found an uninitialized slot, break from the execution loop
             break;
         }
+
+        //Check scheduler mailbox for any message that activates or deactivates a task
+
+        UpdateTaskActiveness();
+
 		l_u8NextSlot++;
     }
  //   CalculateNextSchedule(); // TODO
@@ -282,14 +284,13 @@ void Scheduler::PairTasks(void)
 
     for(short l_i16TaskIDCounter1 = 0; l_i16TaskIDCounter1 < m_u8TaskCount; l_i16TaskIDCounter1++)
     {
-        //Temporal structure to extract data from Task in the schedule queue
 
         l_stTaskThatHandledsDataNeeds = m_aSchedule[l_i16TaskIDCounter1];
 
         for(short l_i16TaskIDCounter2 = 0; l_i16TaskIDCounter2 < m_u8TaskCount; l_i16TaskIDCounter2++)
            {
 
-            //Check next task if current task has no data dependencies
+            //If current task can't handle any data dependencies, check next task
             if( (l_stTaskThatHandledsDataNeeds.pTask -> GetHandledData()) == NULL_DATA )
             {
                 break;
@@ -308,7 +309,49 @@ void Scheduler::PairTasks(void)
 }
 
 
+void Scheduler::UpdateTaskActiveness(void)
+{
+    uint8_t l_u8NumberofMessages;
+    uint8_t l_u8Task2Toggle;
+    st_Message  l_stRetrievedMessage;
 
+    //Get number of messages in scheduler mailbox
+    l_stRetrievedMessage = m_pMailbox -> getMessage(SCHEDULER_MAILBOX_ID, MAILBOX_DATA);
+
+    l_u8NumberofMessages = l_stRetrievedMessage.u8NumberOfMessages;
+
+    //Check complete Scheduler mailbox to activate / deactivate the tasks in queue
+
+    for(uint8_t l_i16MessageCounter = 0; l_i16MessageCounter < l_u8NumberofMessages; l_i16MessageCounter++)
+    {
+        //Retrieve messages with data codes marked as TASK_ACTIVENESS
+
+        l_stRetrievedMessage = m_pMailbox -> getMessage(SCHEDULER_MAILBOX_ID, TASK_ACTIVENESS);
+
+        l_u8Task2Toggle = l_stRetrievedMessage.u16MessageData;
+
+        //Review Scheduler slots to activate/deactivate the marked (l_u8Task2Toggle) task
+
+        for(uint8_t l_i16TaskCounter = 0; l_i16TaskCounter < m_u8TaskCount; l_i16TaskCounter++)
+        {
+
+            if (m_aSchedule[l_i16TaskCounter].pTask -> m_u8TaskID == l_u8Task2Toggle)
+            {
+                //If the task ID is correct, toggle the task activeness
+                m_aSchedule[l_i16TaskCounter].bTaskIsActive = !m_aSchedule[l_i16TaskCounter].bTaskIsActive;
+
+                break;
+            }
+
+        }
+
+
+
+    }
+
+
+
+}
 
 
 

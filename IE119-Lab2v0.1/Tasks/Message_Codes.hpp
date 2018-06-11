@@ -13,17 +13,19 @@
     //########################################################
 
 #define NULL_DATA           0
-#define SCHEDULE_MESSAGE    1
+#define MAILBOX_DATA        1
+#define SCHEDULE_MESSAGE    2
 
+#define TASK_ACTIVENESS     3
 
-#define ADC_X_READ          2
-#define ADC_Y_READ          3
-#define ADC_Z_READ          4
+#define ADC_X_READ          4
+#define ADC_Y_READ          5
+#define ADC_Z_READ          6
 
-#define LINE_NUMBER         5
+#define LINE_NUMBER         7
 
-#define NEEDED_DATA         6
-#define HANDLED_DATA        7
+#define NEEDED_DATA         8
+#define HANDLED_DATA        9
 
 
 #define DEFAULT_CODE        65535

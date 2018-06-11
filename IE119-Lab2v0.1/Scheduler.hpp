@@ -79,7 +79,7 @@ private:
     uint8_t SCHEDULER_MAILBOX_ID;
 
 
-
+    void UpdateTaskActiveness(void);
     void SortScheduleByPriority(void);
     uint8_t NumberOfTasks(void);
 

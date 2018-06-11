@@ -48,6 +48,7 @@ public:
 
     st_Message GetDefaultMessage(void);
     uint16_t   GetMaxMessageQueue(void);
+    uint8_t    GetSchedulerMailboxID(void);
 
 private:
     Mailbox();
@@ -60,9 +61,11 @@ private:
                                     uint16_t i_u16MessageCode = DEFAULT_CODE
                                     );
 
+    uint16_t MAX_MSG_QUEUE_PER_TASK;
+
     st_Message m_CompleteMailbox[MAX_MESSAGE_QUEUE];
     st_Message m_stDefaultMessage;
-    uint16_t l_i16MaxQueuePerTask;
+
 
     //Base position to access the scheduler messages.
     uint8_t SCHEDULER_MAILBOX_ID;

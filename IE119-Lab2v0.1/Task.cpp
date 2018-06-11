@@ -35,6 +35,8 @@ bool Task::CheckMessageIntegrity(st_Message i_stMessage)
     }
 }
 
+
+
 st_Message Task::GetDefaultMessage(void)
 {
    return (m_pMailbox -> GetDefaultMessage());
@@ -59,7 +61,10 @@ uint32_t Task::GetHandledData(void)
 }
 
 
-
+uint8_t Task::GetSchedulerMailboxID(void)
+{
+    return( m_pMailbox -> GetSchedulerMailboxID()  );
+}
 
 
 

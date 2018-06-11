@@ -29,11 +29,12 @@ class Task
 
 		st_Message          GetDefaultMessage(void);
 		uint16_t            GetMaxMessageQueue(void);
+		uint8_t             GetSchedulerMailboxID(void);
 
 		uint32_t            GetNeededData(void);
 		uint32_t            GetHandledData(void);
 
-		bool CheckMessageIntegrity(st_Message i_stMessage);
+		bool                CheckMessageIntegrity(st_Message i_stMessage);
 
 		uint8_t             DestinationID;
 
