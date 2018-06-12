@@ -2,23 +2,17 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL = cmd.exe
-
-CG_TOOL_ROOT := C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS
+CG_TOOL_ROOT := /home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
 "./Check.obj" \
-"./HAL_I2C.obj" \
-"./HAL_OPT3001.obj" \
-"./Lab2utilities.obj" \
 "./Mailbox.obj" \
 "./Scheduler.obj" \
 "./Task.obj" \
 "./main.obj" \
-"./mainViejo.obj" \
 "./system_msp432p401r.obj" \
 "./LcdDriver/Crystalfontz128x128_ST7735.obj" \
 "./LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" \
@@ -39,8 +33,8 @@ $(GEN_CMDS__FLAG) \
 
 -include ../makefile.init
 
-RM := DEL /F
-RMDIR := RMDIR /S/Q
+RM := rm -rf
+RMDIR := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -168,23 +162,27 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 IE119-Lab2.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
+<<<<<<< HEAD
 	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"IE119-Lab2.map" --stack_size=1024 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="IE119-Lab2_linkInfo.xml" --rom_model -o "IE119-Lab2.out" $(ORDERED_OBJS)
+=======
+	"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=none --define=__MSP432P401R__ --define=DeviceFamily_MSP432P401x -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"IE119-Lab2.map" --stack_size=512 -i"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"/home/esteban/ti/simplelink_msp432p4_sdk_2_10_00_14/source" -i"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="IE119-Lab2_linkInfo.xml" --rom_model -o "IE119-Lab2.out" $(ORDERED_OBJS)
+>>>>>>> cdbbcbc7e359565a5790a8170d22bb66ddbbf793
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 IE119-Lab2.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "IE119-Lab2.hex" $(EXE_OUTPUTS__QUOTED)
+	"/home/esteban/ti/ccsv7/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "IE119-Lab2.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Check.obj" "HAL_I2C.obj" "HAL_OPT3001.obj" "Lab2utilities.obj" "Mailbox.obj" "Scheduler.obj" "Task.obj" "main.obj" "mainViejo.obj" "system_msp432p401r.obj" "LcdDriver\Crystalfontz128x128_ST7735.obj" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "Tasks\LED.obj" "Tasks\LINE_COUNT.obj" "Tasks\SCREEN_UPDATE.obj" "Tasks\UPDATE_ADC.obj" "ccs\startup_msp432p401r_ccs.obj" 
-	-$(RM) "HAL_I2C.d" "HAL_OPT3001.d" "system_msp432p401r.d" "LcdDriver\Crystalfontz128x128_ST7735.d" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" "ccs\startup_msp432p401r_ccs.d" 
-	-$(RM) "Check.d" "Lab2utilities.d" "Mailbox.d" "Scheduler.d" "Task.d" "main.d" "mainViejo.d" "Tasks\LED.d" "Tasks\LINE_COUNT.d" "Tasks\SCREEN_UPDATE.d" "Tasks\UPDATE_ADC.d" 
+	-$(RM) "Check.obj" "Mailbox.obj" "Scheduler.obj" "Task.obj" "main.obj" "system_msp432p401r.obj" "LcdDriver/Crystalfontz128x128_ST7735.obj" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "Tasks/LED.obj" "Tasks/LINE_COUNT.obj" "Tasks/SCREEN_UPDATE.obj" "Tasks/UPDATE_ADC.obj" "ccs/startup_msp432p401r_ccs.obj" 
+	-$(RM) "system_msp432p401r.d" "LcdDriver/Crystalfontz128x128_ST7735.d" "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" "ccs/startup_msp432p401r_ccs.d" 
+	-$(RM) "Check.d" "Mailbox.d" "Scheduler.d" "Task.d" "main.d" "Tasks/LED.d" "Tasks/LINE_COUNT.d" "Tasks/SCREEN_UPDATE.d" "Tasks/UPDATE_ADC.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
